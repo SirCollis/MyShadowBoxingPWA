@@ -560,147 +560,141 @@
             }
         }
 
-        async function saveWorkout() {
-            if (!workoutStartedTime) return;
-
-            const duration = Math.floor((Date.now() - workoutStartedTime) / 1000);
-            const workoutData = {
-                level: currentLevel,
-                difficulty: selectedDifficulty,
-                duration: duration,
-                punches: punchCount,
-                movements: movementCount,
-                timestamp: new Date().toISOString() // Use ISO string for saving dates
-            };
-
-            const { workouts, streak } = loadData();
-            workouts.push(workoutData);
-
-            // Calculate and update streak
-            let newStreak = streak.dailyStreak || 0;
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            if (streak.lastWorkoutDate) {
-                const lastDateOnly = new Date(streak.lastWorkoutDate);
-                lastDateOnly.setHours(0, 0, 0, 0);
-                const dayDifference = Math.floor((today - lastDateOnly) / (1000 * 60 * 60 * 24));
-
-                if (dayDifference === 1) {
-                    newStreak += 1;
-                } else if (dayDifference > 1) {
-                    newStreak = 1;
-                }
-            } else {
-                newStreak = 1;
-            }
-
-            const updatedStreak = {
-                dailyStreak: newStreak,
-                lastWorkoutDate: new Date().toISOString()
-            };
-
-            saveData(workouts, updatedStreak);
-            showMessageModal("Workout saved successfully!");
-            updateUIWithData();
-        }
-
-        // --- UI LOGIC ---
-        function showMessageModal(message) {
-            const modal = document.getElementById('message-modal');
-            const modalMessage = document.getElementById('modal-message');
-            modalMessage.textContent = message;
-            modal.classList.remove('hidden');
-            document.getElementById('close-modal-button').onclick = () => {
-                modal.classList.add('hidden');
-            };
-        }
-
+        // --- NAVIGATION LOGIC ---
         function showPage(pageId) {
-            document.querySelectorAll('.container').forEach(page => {
-                page.classList.add('hidden');
-            });
+            const pages = document.querySelectorAll('.container');
+            pages.forEach(page => page.classList.add('hidden'));
             document.getElementById(pageId).classList.remove('hidden');
         }
 
-        function updateLevelDisplay(level) {
-            const elements = levelElements[level];
-            elements.comboDisplay.textContent = '';
-            elements.timerDisplay.textContent = formatTime(selectedTimer);
-            elements.punchCountDisplay.textContent = '0';
-            elements.movementCountDisplay.textContent = '0';
-            elements.statusMessage.classList.add('hidden');
-            elements.saveButton.classList.add('hidden');
-            elements.startButton.classList.remove('hidden');
-            elements.stopButton.classList.add('hidden');
+        // Dynamically generate level buttons on the main menu
+        function createLevelButtons() {
+            for (let i = 1; i <= levels; i++) {
+                const button = document.createElement('button');
+                button.textContent = `Level ${i}`;
+                button.className = 'level-button vibrant-button';
+                button.addEventListener('click', () => {
+                    currentLevel = i;
+                    resetWorkoutState();
+                    showPage(`level-${i}-page`);
+                });
+                levelButtonContainer.appendChild(button);
+            }
+        }
 
-            // Reset selected buttons
-            elements.difficultyButtons.forEach(btn => btn.classList.remove('button-selected'));
-            elements.timerButtons.forEach(btn => btn.classList.remove('button-selected'));
-
-            // Reset state
+        // --- WORKOUT STATE AND CONTROLS ---
+        function resetWorkoutState() {
             isWorkoutRunning = false;
             selectedDifficulty = null;
             selectedTimer = null;
+            gameSpeed = 1;
             punchCount = 0;
             movementCount = 0;
             easyModeIndex = 0;
+            stopWorkout();
+
+            const elements = levelElements[currentLevel];
+            if (elements) {
+                elements.startButton.classList.add('hidden');
+                elements.stopButton.classList.add('hidden');
+                elements.saveButton.classList.add('hidden');
+                elements.comboDisplay.textContent = '';
+                elements.statusMessage.textContent = '';
+                elements.statusMessage.classList.add('hidden');
+                elements.timerDisplay.textContent = '00:00';
+                elements.punchCountDisplay.textContent = '0';
+                elements.movementCountDisplay.textContent = '0';
+                elements.speedDisplay.textContent = 'Speed: 1';
+
+                elements.difficultyButtons.forEach(btn => btn.classList.remove('button-selected'));
+                elements.timerButtons.forEach(btn => btn.classList.remove('button-selected'));
+            }
         }
 
-        // --- WORKOUT LOGIC ---
+        function updateStartButtonVisibility() {
+            const elements = levelElements[currentLevel];
+            if (elements && selectedDifficulty && selectedTimer) {
+                elements.startButton.classList.remove('hidden');
+            } else {
+                elements.startButton.classList.add('hidden');
+            }
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            const formattedMinutes = String(minutes).padStart(2, '0');
+            const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+            return `${formattedMinutes}:${formattedSeconds}`;
+        }
+
+        function updateTimerDisplay() {
+            if (selectedTimer === 'open') {
+                const elapsedTime = Math.floor((Date.now() - workoutStartedTime) / 1000);
+                levelElements[currentLevel].timerDisplay.textContent = formatTime(elapsedTime);
+            } else {
+                levelElements[currentLevel].timerDisplay.textContent = formatTime(timeLeft);
+            }
+        }
+
         function startWorkout() {
             if (isWorkoutRunning) return;
-
-            // Check if difficulty and timer are selected
-            if (!selectedDifficulty || !selectedTimer) {
-                showMessageModal("Please select a difficulty and a timer.");
-                return;
-            }
-
             isWorkoutRunning = true;
             workoutStartedTime = Date.now();
+
             const elements = levelElements[currentLevel];
             elements.startButton.classList.add('hidden');
             elements.stopButton.classList.remove('hidden');
             elements.saveButton.classList.add('hidden');
-            elements.statusMessage.classList.add('hidden');
-            elements.punchCountDisplay.textContent = '0';
-            elements.movementCountDisplay.textContent = '0';
-            punchCount = 0;
-            movementCount = 0;
+            elements.statusMessage.textContent = 'Ready...';
+            elements.statusMessage.classList.remove('hidden');
 
-            // Start combo interval
-            const punchDelay = 3000 / gameSpeed;
-            punchIntervalId = setInterval(generateCombo, punchDelay);
+            // Clear any existing intervals
+            clearInterval(punchIntervalId);
+            clearInterval(timerIntervalId);
 
-            // Start timer interval for non-open modes
-            if (selectedTimer !== 'open') {
-                timeLeft = parseInt(selectedTimer);
-                elements.timerDisplay.textContent = formatTime(timeLeft);
-                timerIntervalId = setInterval(() => {
-                    timeLeft--;
-                    elements.timerDisplay.textContent = formatTime(timeLeft);
-                    if (timeLeft <= 0) {
-                        stopWorkout("Workout Finished!");
+            setTimeout(() => {
+                elements.statusMessage.textContent = 'GO!';
+                setTimeout(() => {
+                    elements.statusMessage.classList.add('hidden');
+
+                    // Start the main workout interval
+                    punchIntervalId = setInterval(generateCombo, (1000 * (selectedDifficulty === 'easy' ? 2 : 1)) / gameSpeed);
+
+                    // Start the timer
+                    if (selectedTimer !== 'open') {
+                        timeLeft = parseInt(selectedTimer, 10);
+                        updateTimerDisplay();
+                        timerIntervalId = setInterval(() => {
+                            timeLeft--;
+                            updateTimerDisplay();
+                            if (timeLeft <= 0) {
+                                stopWorkout();
+                            }
+                        }, 1000);
+                    } else {
+                        timerIntervalId = setInterval(updateTimerDisplay, 1000);
                     }
                 }, 1000);
-            } else {
-                elements.timerDisplay.textContent = 'Open';
-            }
+            }, 1000);
         }
 
-        function stopWorkout(message = "Workout Stopped.") {
+        function stopWorkout() {
             isWorkoutRunning = false;
             clearInterval(punchIntervalId);
             clearInterval(timerIntervalId);
+
             const elements = levelElements[currentLevel];
-            elements.startButton.classList.remove('hidden');
-            elements.stopButton.classList.add('hidden');
-            elements.saveButton.classList.remove('hidden');
-            elements.statusMessage.textContent = message;
-            elements.statusMessage.classList.remove('hidden');
+            if (elements) {
+                elements.startButton.classList.remove('hidden');
+                elements.stopButton.classList.add('hidden');
+                elements.saveButton.classList.remove('hidden');
+                elements.statusMessage.classList.remove('hidden');
+                elements.statusMessage.textContent = 'Workout Finished!';
+            }
         }
 
+        // --- COMBO GENERATION LOGIC ---
         function generateCombo() {
             const elements = levelElements[currentLevel];
             const data = levelData[currentLevel];
@@ -710,118 +704,168 @@
                 combo = data.easySequence[easyModeIndex];
                 easyModeIndex = (easyModeIndex + 1) % data.easySequence.length;
             } else {
-                const punchCount = selectedDifficulty === 'normal' ? 1 : Math.floor(Math.random() * 3) + 1;
-                const movementChance = selectedDifficulty === 'hard' ? 0.5 : 0.2;
-                let comboArray = [];
+                let comboOptions = [];
+                // Add punches based on difficulty
+                comboOptions.push(...data.punches);
 
-                for (let i = 0; i < punchCount; i++) {
-                    comboArray.push(data.punches[Math.floor(Math.random() * data.punches.length)]);
+                // Add movements based on difficulty
+                if (data.movements.length > 0) {
+                    if (selectedDifficulty === 'normal') {
+                        comboOptions.push(...data.movements); // Equal chance of punch or movement
+                    } else if (selectedDifficulty === 'hard') {
+                        // Higher chance of a combo string
+                        let numPunches = Math.floor(Math.random() * 3) + 1; // 1-3 punches
+                        let punches = [];
+                        for(let i = 0; i < numPunches; i++){
+                            punches.push(data.punches[Math.floor(Math.random() * data.punches.length)]);
+                        }
+                        let numMovements = Math.floor(Math.random() * 2) + 1; // 1-2 movements
+                        let movements = [];
+                        for(let i = 0; i < numMovements; i++){
+                            movements.push(data.movements[Math.floor(Math.random() * data.movements.length)]);
+                        }
+                        combo = [...punches, ...movements].sort(() => Math.random() - 0.5).join(' ');
+                        elements.comboDisplay.textContent = combo;
+                        if (typeof combo === 'string') {
+                            combo.split(' ').forEach(item => {
+                                if (typeof item === 'number' || !isNaN(item)) {
+                                    punchCount++;
+                                } else {
+                                    movementCount++;
+                                }
+                            });
+                        }
+                        elements.punchCountDisplay.textContent = punchCount;
+                        elements.movementCountDisplay.textContent = movementCount;
+                        return;
+                    }
                 }
 
-                if (Math.random() < movementChance && data.movements.length > 0) {
-                    const movement = data.movements[Math.floor(Math.random() * data.movements.length)];
-                    comboArray.push(movement);
-                }
-                combo = comboArray.join(' - ');
+                combo = comboOptions[Math.floor(Math.random() * comboOptions.length)];
             }
 
             elements.comboDisplay.textContent = combo;
 
-            // Update counts
-            const punchesInCombo = combo.toString().split(' - ').filter(item => !isNaN(item));
-            punchCount += punchesInCombo.length;
-
-            const movementsInCombo = combo.toString().split(' - ').filter(item => isNaN(item) || !/^\d+$/.test(item));
-            movementCount += movementsInCombo.length;
+            if (typeof combo === 'number' || !isNaN(combo)) {
+                punchCount++;
+            } else {
+                movementCount++;
+            }
 
             elements.punchCountDisplay.textContent = punchCount;
             elements.movementCountDisplay.textContent = movementCount;
         }
 
-        // --- HELPERS ---
-        function formatTime(seconds) {
-            if (seconds === 'open') return 'Open';
-            const minutes = Math.floor(seconds / 60);
-            const remainingSeconds = seconds % 60;
-            return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        // --- STREAK LOGIC ---
+        function updateStreak() {
+            const { streak } = loadData();
+            const today = new Date().toDateString();
+            const lastDate = streak.lastWorkoutDate;
+
+            let newStreak = 1;
+            if (lastDate) {
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                const yesterdayString = yesterday.toDateString();
+
+                if (lastDate === today) {
+                    newStreak = streak.dailyStreak; // Don't reset if workout is on the same day
+                } else if (lastDate === yesterdayString) {
+                    newStreak = streak.dailyStreak + 1; // Continue streak
+                }
+            }
+
+            saveData(loadData().workouts, { dailyStreak: newStreak, lastWorkoutDate: today });
+            updateUIWithData();
+        }
+
+        // --- MODAL FUNCTIONS ---
+        function showMessage(message) {
+            const modal = document.getElementById('message-modal');
+            document.getElementById('modal-message').textContent = message;
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('message-modal');
+            modal.classList.add('hidden');
         }
 
         // --- EVENT LISTENERS ---
+        createLevelButtons();
+        updateUIWithData();
 
-        // Dynamically generate level buttons
-        for (let i = 1; i <= levels; i++) {
-            const button = document.createElement('button');
-            button.className = 'level-button vibrant-button';
-            button.textContent = `Level ${i}`;
-            button.dataset.level = i;
-            levelButtonContainer.appendChild(button);
+        document.getElementById('close-modal-button').addEventListener('click', closeModal);
 
-            button.addEventListener('click', () => {
-                currentLevel = i;
-                showPage(`level-${i}-page`);
-                updateLevelDisplay(i);
-            });
-        }
-
-        // Attach event listeners for each level page
+        // Loop through each level's buttons and attach listeners
         for (let i = 1; i <= levels; i++) {
             const elements = levelElements[i];
 
-            elements.difficultyButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    elements.difficultyButtons.forEach(btn => btn.classList.remove('button-selected'));
-                    button.classList.add('button-selected');
-                    selectedDifficulty = button.dataset.difficulty;
-                    elements.startButton.classList.remove('hidden');
-                    stopWorkout("Difficulty selected. Choose a timer and press Start.");
+            elements.difficultyButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    elements.difficultyButtons.forEach(b => b.classList.remove('button-selected'));
+                    btn.classList.add('button-selected');
+                    selectedDifficulty = btn.dataset.difficulty;
+                    updateStartButtonVisibility();
                 });
             });
 
-            elements.timerButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    elements.timerButtons.forEach(btn => btn.classList.remove('button-selected'));
-                    button.classList.add('button-selected');
-                    selectedTimer = button.dataset.timer;
-                    elements.startButton.classList.remove('hidden');
-                    stopWorkout("Timer selected. Choose a difficulty and press Start.");
+            elements.timerButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    elements.timerButtons.forEach(b => b.classList.remove('button-selected'));
+                    btn.classList.add('button-selected');
+                    selectedTimer = btn.dataset.timer;
+                    updateStartButtonVisibility();
                 });
             });
 
             elements.startButton.addEventListener('click', startWorkout);
-            elements.stopButton.addEventListener('click', () => stopWorkout());
-            elements.saveButton.addEventListener('click', saveWorkout);
+            elements.stopButton.addEventListener('click', stopWorkout);
             elements.backButton.addEventListener('click', () => {
                 stopWorkout();
                 showPage('main-menu-page');
+                updateUIWithData();
+            });
+
+            elements.saveButton.addEventListener('click', () => {
+                const duration = selectedTimer === 'open' ? Math.floor((Date.now() - workoutStartedTime) / 1000) : parseInt(selectedTimer, 10);
+                const newWorkout = {
+                    level: currentLevel,
+                    difficulty: selectedDifficulty,
+                    timer: selectedTimer,
+                    duration: duration,
+                    punches: punchCount,
+                    movements: movementCount,
+                    timestamp: new Date().toISOString()
+                };
+
+                const { workouts } = loadData();
+                workouts.push(newWorkout);
+                saveData(workouts, loadData().streak);
+                updateStreak();
+
+                showMessage('Workout saved successfully!');
+                elements.saveButton.classList.add('hidden');
             });
 
             elements.speedUpButton.addEventListener('click', () => {
-                if (gameSpeed < 3) {
-                    gameSpeed += 0.5;
-                    elements.speedDisplay.textContent = `Speed: ${gameSpeed}`;
-                    if (isWorkoutRunning) {
-                        clearInterval(punchIntervalId);
-                        const punchDelay = 3000 / gameSpeed;
-                        punchIntervalId = setInterval(generateCombo, punchDelay);
-                    }
+                gameSpeed = Math.min(gameSpeed + 0.1, 2.0); // Max speed of 2.0
+                elements.speedDisplay.textContent = `Speed: ${gameSpeed.toFixed(1)}`;
+                if (isWorkoutRunning) {
+                    clearInterval(punchIntervalId);
+                    punchIntervalId = setInterval(generateCombo, (1000 * (selectedDifficulty === 'easy' ? 2 : 1)) / gameSpeed);
                 }
             });
 
             elements.speedDownButton.addEventListener('click', () => {
-                if (gameSpeed > 0.5) {
-                    gameSpeed -= 0.5;
-                    elements.speedDisplay.textContent = `Speed: ${gameSpeed}`;
-                    if (isWorkoutRunning) {
-                        clearInterval(punchIntervalId);
-                        const punchDelay = 3000 / gameSpeed;
-                        punchIntervalId = setInterval(generateCombo, punchDelay);
-                    }
+                gameSpeed = Math.max(gameSpeed - 0.1, 0.5); // Min speed of 0.5
+                elements.speedDisplay.textContent = `Speed: ${gameSpeed.toFixed(1)}`;
+                if (isWorkoutRunning) {
+                    clearInterval(punchIntervalId);
+                    punchIntervalId = setInterval(generateCombo, (1000 * (selectedDifficulty === 'easy' ? 2 : 1)) / gameSpeed);
                 }
             });
         }
-
-        // Initial load of data
-        updateUIWithData();
     });
 </script>
 </body>
