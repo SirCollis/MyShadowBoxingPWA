@@ -420,6 +420,33 @@
     </div>
 </div>
 
+<!-- AUDIO ELEMENTS -->
+<!-- Place your audio files in the same directory as this HTML file.
+     Name them exactly as shown below, e.g., 'punch-1.mp3', 'slip-right.mp3', etc. -->
+<audio id="punch-1" src="./punch-1.mp3" preload="auto"></audio>
+<audio id="punch-2" src="./punch-2.mp3" preload="auto"></audio>
+<audio id="punch-3" src="./punch-3.mp3" preload="auto"></audio>
+<audio id="punch-4" src="./punch-4.mp3" preload="auto"></audio>
+<audio id="punch-5" src="./punch-5.mp3" preload="auto"></audio>
+<audio id="punch-6" src="./punch-6.mp3" preload="auto"></audio>
+<audio id="punch-7" src="./punch-7.mp3" preload="auto"></audio>
+<audio id="punch-8" src="./punch-8.mp3" preload="auto"></audio>
+<audio id="punch-9" src="./punch-9.mp3" preload="auto"></audio>
+<audio id="punch-10" src="./punch-10.mp3" preload="auto"></audio>
+<audio id="punch-11" src="./punch-11.mp3" preload="auto"></audio>
+<audio id="punch-12" src="./punch-12.mp3" preload="auto"></audio>
+<audio id="punch-13" src="./punch-13.mp3" preload="auto"></audio>
+<audio id="punch-14" src="./punch-14.mp3" preload="auto"></audio>
+<audio id="punch-15" src="./punch-15.mp3" preload="auto"></audio>
+<audio id="punch-16" src="./punch-16.mp3" preload="auto"></audio>
+<audio id="slip-right" src="./slip-right.mp3" preload="auto"></audio>
+<audio id="slip-left" src="./slip-left.mp3" preload="auto"></audio>
+<audio id="duck-under" src="./duck-under.mp3" preload="auto"></audio>
+<audio id="slip" src="./slip.mp3" preload="auto"></audio>
+<audio id="duck" src="./duck.mp3" preload="auto"></audio>
+<audio id="step" src="./step.mp3" preload="auto"></audio>
+<audio id="pivot" src="./pivot.mp3" preload="auto"></audio>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -560,312 +587,305 @@
             }
         }
 
-        // --- NAVIGATION LOGIC ---
-        function showPage(pageId) {
-            const pages = document.querySelectorAll('.container');
-            pages.forEach(page => page.classList.add('hidden'));
-            document.getElementById(pageId).classList.remove('hidden');
-        }
-
-        // Dynamically generate level buttons on the main menu
-        function createLevelButtons() {
-            for (let i = 1; i <= levels; i++) {
-                const button = document.createElement('button');
-                button.textContent = `Level ${i}`;
-                button.className = 'level-button vibrant-button';
-                button.addEventListener('click', () => {
-                    currentLevel = i;
-                    resetWorkoutState();
-                    showPage(`level-${i}-page`);
-                });
-                levelButtonContainer.appendChild(button);
+        // --- AUDIO PLAYBACK ---
+        function playAudio(audioId) {
+            const audio = document.getElementById(audioId);
+            if (audio) {
+                // Reset and play the audio
+                audio.currentTime = 0;
+                audio.play().catch(e => console.error(`Failed to play audio for ID: ${audioId}`, e));
+            } else {
+                console.warn(`Audio element with ID "${audioId}" not found. Check your file names.`);
             }
         }
 
-        // --- WORKOUT STATE AND CONTROLS ---
-        function resetWorkoutState() {
+        // --- NAVIGATION AND WORKOUT CONTROL ---
+        function showPage(pageId) {
+            document.querySelectorAll('.container').forEach(page => {
+                page.classList.add('hidden');
+            });
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        function resetWorkoutState(level) {
             isWorkoutRunning = false;
-            selectedDifficulty = null;
-            selectedTimer = null;
+            clearInterval(punchIntervalId);
+            clearInterval(timerIntervalId);
             gameSpeed = 1;
             punchCount = 0;
             movementCount = 0;
             easyModeIndex = 0;
-            stopWorkout();
 
-            const elements = levelElements[currentLevel];
-            if (elements) {
-                elements.startButton.classList.add('hidden');
-                elements.stopButton.classList.add('hidden');
-                elements.saveButton.classList.add('hidden');
-                elements.comboDisplay.textContent = '';
-                elements.statusMessage.textContent = '';
-                elements.statusMessage.classList.add('hidden');
-                elements.timerDisplay.textContent = '00:00';
-                elements.punchCountDisplay.textContent = '0';
-                elements.movementCountDisplay.textContent = '0';
-                elements.speedDisplay.textContent = 'Speed: 1';
+            const elements = levelElements[level];
+            elements.comboDisplay.textContent = '';
+            elements.timerDisplay.textContent = '';
+            elements.speedDisplay.textContent = `Speed: ${gameSpeed}`;
+            elements.punchCountDisplay.textContent = '0';
+            elements.movementCountDisplay.textContent = '0';
+            elements.statusMessage.classList.add('hidden');
 
-                elements.difficultyButtons.forEach(btn => btn.classList.remove('button-selected'));
-                elements.timerButtons.forEach(btn => btn.classList.remove('button-selected'));
-            }
-        }
-
-        function updateStartButtonVisibility() {
-            const elements = levelElements[currentLevel];
-            if (elements && selectedDifficulty && selectedTimer) {
-                elements.startButton.classList.remove('hidden');
-            } else {
-                elements.startButton.classList.add('hidden');
-            }
+            elements.startButton.classList.remove('hidden');
+            elements.stopButton.classList.add('hidden');
+            elements.saveButton.classList.add('hidden');
         }
 
         function formatTime(seconds) {
             const minutes = Math.floor(seconds / 60);
             const remainingSeconds = seconds % 60;
-            const formattedMinutes = String(minutes).padStart(2, '0');
-            const formattedSeconds = String(remainingSeconds).padStart(2, '0');
-            return `${formattedMinutes}:${formattedSeconds}`;
+            return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
         }
 
-        function updateTimerDisplay() {
-            if (selectedTimer === 'open') {
-                const elapsedTime = Math.floor((Date.now() - workoutStartedTime) / 1000);
-                levelElements[currentLevel].timerDisplay.textContent = formatTime(elapsedTime);
+        function startTimer(level) {
+            const elements = levelElements[level];
+            const display = elements.timerDisplay;
+            const totalDuration = selectedTimer;
+            timeLeft = totalDuration;
+
+            if (selectedTimer !== 'open') {
+                display.textContent = formatTime(timeLeft);
+                timerIntervalId = setInterval(() => {
+                    timeLeft--;
+                    display.textContent = formatTime(timeLeft);
+                    if (timeLeft <= 0) {
+                        stopWorkout(level);
+                        const finalWorkoutStats = {
+                            level: level,
+                            difficulty: selectedDifficulty,
+                            duration: totalDuration,
+                            punches: punchCount,
+                            movements: movementCount,
+                            timestamp: new Date().toISOString()
+                        };
+                        saveWorkout(finalWorkoutStats);
+                        showModal('Workout Finished! Your workout has been saved.');
+                    }
+                }, 1000);
             } else {
-                levelElements[currentLevel].timerDisplay.textContent = formatTime(timeLeft);
+                workoutStartedTime = Date.now();
+                timerIntervalId = setInterval(() => {
+                    const elapsedTime = Math.floor((Date.now() - workoutStartedTime) / 1000);
+                    display.textContent = formatTime(elapsedTime);
+                }, 1000);
             }
         }
 
-        function startWorkout() {
-            if (isWorkoutRunning) return;
-            isWorkoutRunning = true;
-            workoutStartedTime = Date.now();
+        function stopWorkout(level) {
+            if (isWorkoutRunning) {
+                isWorkoutRunning = false;
+                clearInterval(punchIntervalId);
+                clearInterval(timerIntervalId);
 
-            const elements = levelElements[currentLevel];
-            elements.startButton.classList.add('hidden');
-            elements.stopButton.classList.remove('hidden');
-            elements.saveButton.classList.add('hidden');
-            elements.statusMessage.textContent = 'Ready...';
-            elements.statusMessage.classList.remove('hidden');
-
-            // Clear any existing intervals
-            clearInterval(punchIntervalId);
-            clearInterval(timerIntervalId);
-
-            setTimeout(() => {
-                elements.statusMessage.textContent = 'GO!';
-                setTimeout(() => {
-                    elements.statusMessage.classList.add('hidden');
-
-                    // Start the main workout interval
-                    punchIntervalId = setInterval(generateCombo, (1000 * (selectedDifficulty === 'easy' ? 2 : 1)) / gameSpeed);
-
-                    // Start the timer
-                    if (selectedTimer !== 'open') {
-                        timeLeft = parseInt(selectedTimer, 10);
-                        updateTimerDisplay();
-                        timerIntervalId = setInterval(() => {
-                            timeLeft--;
-                            updateTimerDisplay();
-                            if (timeLeft <= 0) {
-                                stopWorkout();
-                            }
-                        }, 1000);
-                    } else {
-                        timerIntervalId = setInterval(updateTimerDisplay, 1000);
-                    }
-                }, 1000);
-            }, 1000);
-        }
-
-        function stopWorkout() {
-            isWorkoutRunning = false;
-            clearInterval(punchIntervalId);
-            clearInterval(timerIntervalId);
-
-            const elements = levelElements[currentLevel];
-            if (elements) {
+                const elements = levelElements[level];
                 elements.startButton.classList.remove('hidden');
                 elements.stopButton.classList.add('hidden');
                 elements.saveButton.classList.remove('hidden');
-                elements.statusMessage.classList.remove('hidden');
-                elements.statusMessage.textContent = 'Workout Finished!';
+
+                if (selectedTimer === 'open') {
+                    const duration = Math.floor((Date.now() - workoutStartedTime) / 1000);
+                    timeLeft = duration;
+                }
             }
         }
 
-        // --- COMBO GENERATION LOGIC ---
-        function generateCombo() {
-            const elements = levelElements[currentLevel];
-            const data = levelData[currentLevel];
-            let combo;
+        function saveWorkout(workoutData) {
+            const { workouts, streak } = loadData();
+            workouts.push(workoutData);
+
+            // Streak logic
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            let currentStreak = streak.dailyStreak || 0;
+            let lastDate = streak.lastWorkoutDate ? new Date(streak.lastWorkoutDate) : null;
+
+            if (lastDate) {
+                const diffDays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
+                if (diffDays === 1) {
+                    currentStreak++;
+                } else if (diffDays > 1) {
+                    currentStreak = 1;
+                }
+            } else {
+                currentStreak = 1;
+            }
+
+            const newStreak = { dailyStreak: currentStreak, lastWorkoutDate: today.toISOString() };
+            saveData(workouts, newStreak);
+            updateUIWithData();
+        }
+
+        function generateNextCombo(level) {
+            const elements = levelElements[level];
+            const currentLevelData = levelData[level];
+            let comboText;
 
             if (selectedDifficulty === 'easy') {
-                combo = data.easySequence[easyModeIndex];
-                easyModeIndex = (easyModeIndex + 1) % data.easySequence.length;
+                comboText = currentLevelData.easySequence[easyModeIndex];
+                easyModeIndex = (easyModeIndex + 1) % currentLevelData.easySequence.length;
             } else {
-                let comboOptions = [];
-                // Add punches based on difficulty
-                comboOptions.push(...data.punches);
-
-                // Add movements based on difficulty
-                if (data.movements.length > 0) {
-                    if (selectedDifficulty === 'normal') {
-                        comboOptions.push(...data.movements); // Equal chance of punch or movement
-                    } else if (selectedDifficulty === 'hard') {
-                        // Higher chance of a combo string
-                        let numPunches = Math.floor(Math.random() * 3) + 1; // 1-3 punches
-                        let punches = [];
-                        for(let i = 0; i < numPunches; i++){
-                            punches.push(data.punches[Math.floor(Math.random() * data.punches.length)]);
-                        }
-                        let numMovements = Math.floor(Math.random() * 2) + 1; // 1-2 movements
-                        let movements = [];
-                        for(let i = 0; i < numMovements; i++){
-                            movements.push(data.movements[Math.floor(Math.random() * data.movements.length)]);
-                        }
-                        combo = [...punches, ...movements].sort(() => Math.random() - 0.5).join(' ');
-                        elements.comboDisplay.textContent = combo;
-                        if (typeof combo === 'string') {
-                            combo.split(' ').forEach(item => {
-                                if (typeof item === 'number' || !isNaN(item)) {
-                                    punchCount++;
-                                } else {
-                                    movementCount++;
-                                }
-                            });
-                        }
-                        elements.punchCountDisplay.textContent = punchCount;
-                        elements.movementCountDisplay.textContent = movementCount;
-                        return;
-                    }
+                const punches = currentLevelData.punches;
+                const movements = currentLevelData.movements;
+                const allItems = [...punches, ...movements];
+                const comboLength = Math.floor(Math.random() * (selectedDifficulty === 'normal' ? 2 : 4)) + 1; // 1 to 2 for normal, 1 to 4 for hard
+                const combo = [];
+                for (let i = 0; i < comboLength; i++) {
+                    combo.push(allItems[Math.floor(Math.random() * allItems.length)]);
                 }
-
-                combo = comboOptions[Math.floor(Math.random() * comboOptions.length)];
+                comboText = combo.join('-');
             }
 
-            elements.comboDisplay.textContent = combo;
+            elements.comboDisplay.textContent = comboText;
 
-            if (typeof combo === 'number' || !isNaN(combo)) {
-                punchCount++;
-            } else {
-                movementCount++;
-            }
+            // Play audio for each element in the combo
+            const comboParts = comboText.toString().split('-');
+            let delay = 0;
+            comboParts.forEach(part => {
+                const audioId = part.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                setTimeout(() => {
+                    playAudio(audioId);
+                }, delay);
+                // Add a slight delay between each audio cue in a combo
+                delay += 500;
+            });
 
+            // Update punch and movement counts
+            comboParts.forEach(part => {
+                if (currentLevelData.punches.includes(Number(part))) {
+                    punchCount++;
+                } else if (currentLevelData.movements.includes(part)) {
+                    movementCount++;
+                }
+            });
             elements.punchCountDisplay.textContent = punchCount;
             elements.movementCountDisplay.textContent = movementCount;
         }
 
-        // --- STREAK LOGIC ---
-        function updateStreak() {
-            const { streak } = loadData();
-            const today = new Date().toDateString();
-            const lastDate = streak.lastWorkoutDate;
-
-            let newStreak = 1;
-            if (lastDate) {
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
-                const yesterdayString = yesterday.toDateString();
-
-                if (lastDate === today) {
-                    newStreak = streak.dailyStreak; // Don't reset if workout is on the same day
-                } else if (lastDate === yesterdayString) {
-                    newStreak = streak.dailyStreak + 1; // Continue streak
-                }
-            }
-
-            saveData(loadData().workouts, { dailyStreak: newStreak, lastWorkoutDate: today });
-            updateUIWithData();
-        }
-
-        // --- MODAL FUNCTIONS ---
-        function showMessage(message) {
-            const modal = document.getElementById('message-modal');
+        // --- UI LOGIC ---
+        function showModal(message) {
             document.getElementById('modal-message').textContent = message;
-            modal.classList.remove('hidden');
+            document.getElementById('message-modal').classList.remove('hidden');
         }
 
-        function closeModal() {
-            const modal = document.getElementById('message-modal');
-            modal.classList.add('hidden');
+        document.getElementById('close-modal-button').addEventListener('click', () => {
+            document.getElementById('message-modal').classList.add('hidden');
+        });
+
+        // Create level buttons dynamically
+        for (let i = 1; i <= levels; i++) {
+            const button = document.createElement('button');
+            button.textContent = `Level ${i}`;
+            button.className = 'level-button vibrant-button';
+            button.dataset.level = i;
+            levelButtonContainer.appendChild(button);
         }
 
-        // --- EVENT LISTENERS ---
-        createLevelButtons();
-        updateUIWithData();
+        // Add event listeners for level buttons
+        levelButtonContainer.addEventListener('click', (e) => {
+            if (e.target.matches('.level-button')) {
+                currentLevel = parseInt(e.target.dataset.level);
+                showPage(`level-${currentLevel}-page`);
+                resetWorkoutState(currentLevel);
+            }
+        });
 
-        document.getElementById('close-modal-button').addEventListener('click', closeModal);
-
-        // Loop through each level's buttons and attach listeners
+        // Add event listeners for start/stop/back buttons for each level
         for (let i = 1; i <= levels; i++) {
             const elements = levelElements[i];
 
-            elements.difficultyButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    elements.difficultyButtons.forEach(b => b.classList.remove('button-selected'));
-                    btn.classList.add('button-selected');
-                    selectedDifficulty = btn.dataset.difficulty;
-                    updateStartButtonVisibility();
-                });
+            elements.startButton.addEventListener('click', () => {
+                if (!selectedDifficulty || !selectedTimer) {
+                    showModal('Please select a difficulty and timer.');
+                    return;
+                }
+                isWorkoutRunning = true;
+                elements.startButton.classList.add('hidden');
+                elements.stopButton.classList.remove('hidden');
+
+                const interval = 2000 / gameSpeed;
+                punchIntervalId = setInterval(() => generateNextCombo(i), interval);
+                startTimer(i);
             });
 
-            elements.timerButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    elements.timerButtons.forEach(b => b.classList.remove('button-selected'));
-                    btn.classList.add('button-selected');
-                    selectedTimer = btn.dataset.timer;
-                    updateStartButtonVisibility();
-                });
+            elements.stopButton.addEventListener('click', () => {
+                stopWorkout(i);
             });
 
-            elements.startButton.addEventListener('click', startWorkout);
-            elements.stopButton.addEventListener('click', stopWorkout);
             elements.backButton.addEventListener('click', () => {
-                stopWorkout();
+                stopWorkout(i);
                 showPage('main-menu-page');
-                updateUIWithData();
             });
 
             elements.saveButton.addEventListener('click', () => {
-                const duration = selectedTimer === 'open' ? Math.floor((Date.now() - workoutStartedTime) / 1000) : parseInt(selectedTimer, 10);
-                const newWorkout = {
-                    level: currentLevel,
-                    difficulty: selectedDifficulty,
-                    timer: selectedTimer,
-                    duration: duration,
-                    punches: punchCount,
-                    movements: movementCount,
-                    timestamp: new Date().toISOString()
-                };
+                if (timeLeft > 0) { // Workout was stopped manually
+                    const duration = (selectedTimer === 'open' ? Math.floor((Date.now() - workoutStartedTime) / 1000) : selectedTimer - timeLeft);
+                    const finalWorkoutStats = {
+                        level: i,
+                        difficulty: selectedDifficulty,
+                        duration: duration,
+                        punches: punchCount,
+                        movements: movementCount,
+                        timestamp: new Date().toISOString()
+                    };
+                    saveWorkout(finalWorkoutStats);
+                    showModal('Workout saved successfully!');
+                } else { // Workout finished automatically
+                    showModal('This workout has already been saved.');
+                }
+            });
 
-                const { workouts } = loadData();
-                workouts.push(newWorkout);
-                saveData(workouts, loadData().streak);
-                updateStreak();
+            elements.difficultyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    elements.difficultyButtons.forEach(btn => btn.classList.remove('button-selected'));
+                    button.classList.add('button-selected');
+                    selectedDifficulty = button.dataset.difficulty;
+                    elements.statusMessage.textContent = `Selected: ${selectedDifficulty.charAt(0).toUpperCase() + selectedDifficulty.slice(1)} Difficulty`;
+                    elements.statusMessage.classList.remove('hidden');
+                    if (selectedTimer) {
+                        elements.startButton.classList.remove('hidden');
+                    }
+                });
+            });
 
-                showMessage('Workout saved successfully!');
-                elements.saveButton.classList.add('hidden');
+            elements.timerButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    elements.timerButtons.forEach(btn => btn.classList.remove('button-selected'));
+                    button.classList.add('button-selected');
+                    selectedTimer = button.dataset.timer;
+                    elements.statusMessage.textContent = `Selected: ${button.textContent}`;
+                    elements.statusMessage.classList.remove('hidden');
+                    if (selectedDifficulty) {
+                        elements.startButton.classList.remove('hidden');
+                    }
+                });
             });
 
             elements.speedUpButton.addEventListener('click', () => {
-                gameSpeed = Math.min(gameSpeed + 0.1, 2.0); // Max speed of 2.0
-                elements.speedDisplay.textContent = `Speed: ${gameSpeed.toFixed(1)}`;
-                if (isWorkoutRunning) {
-                    clearInterval(punchIntervalId);
-                    punchIntervalId = setInterval(generateCombo, (1000 * (selectedDifficulty === 'easy' ? 2 : 1)) / gameSpeed);
+                if (gameSpeed < 4) {
+                    gameSpeed += 0.5;
+                    elements.speedDisplay.textContent = `Speed: ${gameSpeed}`;
+                    if (isWorkoutRunning) {
+                        clearInterval(punchIntervalId);
+                        const newInterval = 2000 / gameSpeed;
+                        punchIntervalId = setInterval(() => generateNextCombo(i), newInterval);
+                    }
                 }
             });
 
             elements.speedDownButton.addEventListener('click', () => {
-                gameSpeed = Math.max(gameSpeed - 0.1, 0.5); // Min speed of 0.5
-                elements.speedDisplay.textContent = `Speed: ${gameSpeed.toFixed(1)}`;
-                if (isWorkoutRunning) {
-                    clearInterval(punchIntervalId);
-                    punchIntervalId = setInterval(generateCombo, (1000 * (selectedDifficulty === 'easy' ? 2 : 1)) / gameSpeed);
+                if (gameSpeed > 0.5) {
+                    gameSpeed -= 0.5;
+                    elements.speedDisplay.textContent = `Speed: ${gameSpeed}`;
+                    if (isWorkoutRunning) {
+                        clearInterval(punchIntervalId);
+                        const newInterval = 2000 / gameSpeed;
+                        punchIntervalId = setInterval(() => generateNextCombo(i), newInterval);
+                    }
                 }
             });
         }
+
+        // Initial UI setup
+        updateUIWithData();
     });
 </script>
 </body>
