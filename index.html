@@ -860,8 +860,8 @@
             });
 
             elements.speedUpButton.addEventListener('click', () => {
-                if (gameSpeed < 4) {
-                    gameSpeed += 0.5;
+                if (gameSpeed < 5) {
+                    gameSpeed += 0.25;
                     elements.speedDisplay.textContent = `Speed: ${gameSpeed}`;
                     if (isWorkoutRunning) {
                         clearInterval(punchIntervalId);
@@ -872,8 +872,8 @@
             });
 
             elements.speedDownButton.addEventListener('click', () => {
-                if (gameSpeed > 0.5) {
-                    gameSpeed -= 0.5;
+                if (gameSpeed > 0.25) {
+                    gameSpeed -= 0.25;
                     elements.speedDisplay.textContent = `Speed: ${gameSpeed}`;
                     if (isWorkoutRunning) {
                         clearInterval(punchIntervalId);
