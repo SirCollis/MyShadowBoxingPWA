@@ -423,29 +423,33 @@
     <!-- AUDIO ELEMENTS -->
     <!-- Place your audio files in the same directory as this HTML file.
          Name them exactly as shown below, e.g., 'punch-1.mp3', 'slip-right.mp3', etc. -->
-    <audio id="punch-1" src="./punch-1.mp3" preload="auto"></audio>
-    <audio id="punch-2" src="./punch-2.mp3" preload="auto"></audio>
-    <audio id="punch-3" src="./punch-3.mp3" preload="auto"></audio>
-    <audio id="punch-4" src="./punch-4.mp3" preload="auto"></audio>
-    <audio id="punch-5" src="./punch-5.mp3" preload="auto"></audio>
-    <audio id="punch-6" src="./punch-6.mp3" preload="auto"></audio>
-    <audio id="punch-7" src="./punch-7.mp3" preload="auto"></audio>
-    <audio id="punch-8" src="./punch-8.mp3" preload="auto"></audio>
-    <audio id="punch-9" src="./punch-9.mp3" preload="auto"></audio>
-    <audio id="punch-10" src="./punch-10.mp3" preload="auto"></audio>
-    <audio id="punch-11" src="./punch-11.mp3" preload="auto"></audio>
-    <audio id="punch-12" src="./punch-12.mp3" preload="auto"></audio>
-    <audio id="punch-13" src="./punch-13.mp3" preload="auto"></audio>
-    <audio id="punch-14" src="./punch-14.mp3" preload="auto"></audio>
-    <audio id="punch-15" src="./punch-15.mp3" preload="auto"></audio>
-    <audio id="punch-16" src="./punch-16.mp3" preload="auto"></audio>
-    <audio id="slip-right" src="./slip-right.mp3" preload="auto"></audio>
-    <audio id="slip-left" src="./slip-left.mp3" preload="auto"></audio>
-    <audio id="duck-under" src="./duck-under.mp3" preload="auto"></audio>
+    <audio id="1" src="./punch-1.mp3" preload="auto"></audio>
+    <audio id="2" src="./punch-2.mp3" preload="auto"></audio>
+    <audio id="3" src="./punch-3.mp3" preload="auto"></audio>
+    <audio id="4" src="./punch-4.mp3" preload="auto"></audio>
+    <audio id="5" src="./punch-5.mp3" preload="auto"></audio>
+    <audio id="6" src="./punch-6.mp3" preload="auto"></audio>
+    <audio id="7" src="./punch-7.mp3" preload="auto"></audio>
+    <audio id="8" src="./punch-8.mp3" preload="auto"></audio>
+    <audio id="9" src="./punch-9.mp3" preload="auto"></audio>
+    <audio id="10" src="./punch-10.mp3" preload="auto"></audio>
+    <audio id="11" src="./punch-11.mp3" preload="auto"></audio>
+    <audio id="12" src="./punch-12.mp3" preload="auto"></audio>
+    <audio id="13" src="./punch-13.mp3" preload="auto"></audio>
+    <audio id="14" src="./punch-14.mp3" preload="auto"></audio>
+    <audio id="15" src="./punch-15.mp3" preload="auto"></audio>
+    <audio id="16" src="./punch-16.mp3" preload="auto"></audio>
+    <audio id="slipright" src="./SlipRight.mp3" preload="auto"></audio>
+    <audio id="slipleft" src="./SlipLeft.mp3" preload="auto"></audio>
+    <audio id="duckunder" src="./DuckUnder.mp3" preload="auto"></audio>
     <audio id="slip" src="./slip.mp3" preload="auto"></audio>
     <audio id="duck" src="./duck.mp3" preload="auto"></audio>
-    <audio id="step" src="./step.mp3" preload="auto"></audio>
-    <audio id="pivot" src="./pivot.mp3" preload="auto"></audio>
+    <audio id="stepleft" src="./StepLeft.mp3" preload="auto"></audio>
+    <audio id="stepright" src="./StepRight.mp3" preload="auto"></audio>
+    <audio id="stepforward" src="./StepForward.mp3" preload="auto"></audio>
+    <audio id="stepback" src="./StepBack.mp3" preload="auto"></audio>
+    <audio id="pivotright" src="./PivotRight.mp3" preload="auto"></audio>
+    <audio id="pivotleft" src="./PivotLeft.mp3" preload="auto"></audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -726,7 +730,7 @@
                     const punches = currentLevelData.punches;
                     const movements = currentLevelData.movements;
                     const allItems = [...punches, ...movements];
-                    const comboLength = Math.floor(Math.random() * (selectedDifficulty === 'normal' ? 2 : 4)) + 1; // 1 to 2 for normal, 1 to 4 for hard
+                    const comboLength = selectedDifficulty === 'normal' ? 1 : Math.floor(Math.random() * 4) + 1; // 1  for normal, 1 to 4 for hard
                     const combo = [];
                     for (let i = 0; i < comboLength; i++) {
                         combo.push(allItems[Math.floor(Math.random() * allItems.length)]);
