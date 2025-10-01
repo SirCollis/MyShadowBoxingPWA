@@ -71,822 +71,822 @@
 </head>
 <body>
 
-<!-- Main Menu Page -->
-<div id="main-menu-page" class="container">
-    <h1 class="text-4xl font-bold mb-6 text-center text-slate-900">Shadow Boxing App</h1>
-    <p class="text-center mb-10 text-zinc-600">Select a level to begin your training.</p>
+    <!-- Main Menu Page -->
+    <div id="main-menu-page" class="container">
+        <h1 class="text-4xl font-bold mb-6 text-center text-slate-900">Shadow Boxing App</h1>
+        <p class="text-center mb-10 text-zinc-600">Select a level to begin your training.</p>
+        
+        <!-- Daily Streak Display -->
+        <div class="flex justify-center items-center mt-6">
+            <div class="text-center">
+                <p class="text-2xl font-bold mb-2">Daily Streak</p>
+                <p id="streak-display" class="text-5xl font-extrabold text-green-500">0</p>
+                <p id="last-workout-date" class="text-sm text-gray-500 mt-2"></p>
+            </div>
+        </div>
+        
+        <div id="level-button-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            <!-- Dynamically generated level buttons -->
+        </div>
 
-    <!-- Daily Streak Display -->
-    <div class="flex justify-center items-center mt-6">
-        <div class="text-center">
-            <p class="text-2xl font-bold mb-2">Daily Streak</p>
-            <p id="streak-display" class="text-5xl font-extrabold text-green-500">0</p>
-            <p id="last-workout-date" class="text-sm text-gray-500 mt-2"></p>
+        <div class="workout-history">
+            <h3 class="text-2xl font-bold mb-4">Your Past Workouts</h3>
+            <div id="history-list">
+                <!-- Workout history will be displayed here -->
+            </div>
         </div>
     </div>
 
-    <div id="level-button-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        <!-- Dynamically generated level buttons -->
+    <!-- Level 1 Page Content (Hidden by default) -->
+    <div id="level-1-page" class="container hidden">
+        <h2 class="text-4xl font-bold mb-4 text-center">Level 1</h2>
+        <p class="text-center text-xl sm:text-2xl text-zinc-600 mb-8">Punches: 1, 2, 3, 4, 5, 6</p>
+        <div id="difficulty-buttons-1" class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+            <button class="level-button vibrant-button" data-difficulty="easy">Easy</button>
+            <button class="level-button vibrant-button" data-difficulty="normal">Normal</button>
+            <button class="level-button vibrant-button" data-difficulty="hard">Hard</button>
+        </div>
+        <div id="timer-buttons-1" class="grid grid-cols-3 gap-4 mb-8">
+            <button class="level-button vibrant-button" data-timer="30">30 Sec</button>
+            <button class="level-button vibrant-button" data-timer="90">1:30</button>
+            <button class="level-button vibrant-button" data-timer="120">2:00</button>
+            <button class="level-button vibrant-button" data-timer="150">2:30</button>
+            <button class="level-button vibrant-button" data-timer="180">3:00</button>
+            <button class="level-button vibrant-button" data-timer="open">Open</button>
+        </div>
+        <div class="text-center combo-display mb-2" id="combo-display-1"></div>
+        <div id="status-message-1" class="text-center text-zinc-500 mb-4 hidden"></div>
+        <div class="text-center timer-display mb-4" id="timer-display-1"></div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-8 mb-4">
+            <div class="text-center">
+                <p class="text-lg font-bold">Punches</p>
+                <p id="punch-count-display-1" class="text-4xl font-extrabold text-orange-500">0</p>
+            </div>
+            <div class="text-center">
+                <p class="text-lg font-bold">Movements</p>
+                <p id="movement-count-display-1" class="text-4xl font-extrabold text-blue-500">0</p>
+            </div>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+            <button id="start-button-1" class="level-button bg-orange-500 hover:bg-orange-400 hidden">Start</button>
+            <button id="stop-button-1" class="level-button bg-red-600 hover:bg-red-500 hidden">Stop</button>
+            <button id="back-button-1" class="level-button back-button">Back</button>
+        </div>
+        <div class="flex items-center justify-center gap-4 mt-4">
+            <button id="speed-down-1" class="level-button vibrant-button">Slow Down</button>
+            <span id="speed-display-1" class="text-xl font-bold">Speed: 1</span>
+            <button id="speed-up-1" class="level-button vibrant-button">Speed Up</button>
+        </div>
+        <button id="save-button-1" class="level-button vibrant-button mt-4 hidden">Save Workout</button>
     </div>
 
-    <div class="workout-history">
-        <h3 class="text-2xl font-bold mb-4">Your Past Workouts</h3>
-        <div id="history-list">
-            <!-- Workout history will be displayed here -->
+    <!-- Level 2 Page Content (Hidden by default) -->
+    <div id="level-2-page" class="container hidden">
+        <h2 class="text-4xl font-bold mb-4 text-center">Level 2</h2>
+        <p class="text-center text-xl sm:text-2xl text-zinc-600 mb-8">Punches: 1-6 & Movements: SlipRight, SlipLeft, DuckUnder</p>
+        <div id="difficulty-buttons-2" class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+            <button class="level-button vibrant-button" data-difficulty="easy">Easy</button>
+            <button class="level-button vibrant-button" data-difficulty="normal">Normal</button>
+            <button class="level-button vibrant-button" data-difficulty="hard">Hard</button>
+        </div>
+        <div id="timer-buttons-2" class="grid grid-cols-3 gap-4 mb-8">
+            <button class="level-button vibrant-button" data-timer="30">30 Sec</button>
+            <button class="level-button vibrant-button" data-timer="90">1:30</button>
+            <button class="level-button vibrant-button" data-timer="120">2:00</button>
+            <button class="level-button vibrant-button" data-timer="150">2:30</button>
+            <button class="level-button vibrant-button" data-timer="180">3:00</button>
+            <button class="level-button vibrant-button" data-timer="open">Open</button>
+        </div>
+        <div class="text-center combo-display mb-2" id="combo-display-2"></div>
+        <div id="status-message-2" class="text-center text-zinc-500 mb-4 hidden"></div>
+        <div class="text-center timer-display mb-4" id="timer-display-2"></div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-8 mb-4">
+            <div class="text-center">
+                <p class="text-lg font-bold">Punches</p>
+                <p id="punch-count-display-2" class="text-4xl font-extrabold text-orange-500">0</p>
+            </div>
+            <div class="text-center">
+                <p class="text-lg font-bold">Movements</p>
+                <p id="movement-count-display-2" class="text-4xl font-extrabold text-blue-500">0</p>
+            </div>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+            <button id="start-button-2" class="level-button bg-orange-500 hover:bg-orange-400 hidden">Start</button>
+            <button id="stop-button-2" class="level-button bg-red-600 hover:bg-red-500 hidden">Stop</button>
+            <button id="back-button-2" class="level-button back-button">Back</button>
+        </div>
+        <div class="flex items-center justify-center gap-4 mt-4">
+            <button id="speed-down-2" class="level-button vibrant-button">Slow Down</button>
+            <span id="speed-display-2" class="text-xl font-bold">Speed: 1</span>
+            <button id="speed-up-2" class="level-button vibrant-button">Speed Up</button>
+        </div>
+        <button id="save-button-2" class="level-button vibrant-button mt-4 hidden">Save Workout</button>
+    </div>
+
+    <!-- Level 3 Page Content -->
+    <div id="level-3-page" class="container hidden">
+        <h2 class="text-4xl font-bold mb-4 text-center">Level 3</h2>
+        <p class="text-center text-xl sm:text-2xl text-zinc-600 mb-8">Punches: 1-10 & Movements: SlipRight, SlipLeft, DuckUnder</p>
+        <div id="difficulty-buttons-3" class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+            <button class="level-button vibrant-button" data-difficulty="easy">Easy</button>
+            <button class="level-button vibrant-button" data-difficulty="normal">Normal</button>
+            <button class="level-button vibrant-button" data-difficulty="hard">Hard</button>
+        </div>
+        <div id="timer-buttons-3" class="grid grid-cols-3 gap-4 mb-8">
+            <button class="level-button vibrant-button" data-timer="30">30 Sec</button>
+            <button class="level-button vibrant-button" data-timer="90">1:30</button>
+            <button class="level-button vibrant-button" data-timer="120">2:00</button>
+            <button class="level-button vibrant-button" data-timer="150">2:30</button>
+            <button class="level-button vibrant-button" data-timer="180">3:00</button>
+            <button class="level-button vibrant-button" data-timer="open">Open</button>
+        </div>
+        <div class="text-center combo-display mb-2" id="combo-display-3"></div>
+        <div id="status-message-3" class="text-center text-zinc-500 mb-4 hidden"></div>
+        <div class="text-center timer-display mb-4" id="timer-display-3"></div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-8 mb-4">
+            <div class="text-center">
+                <p class="text-lg font-bold">Punches</p>
+                <p id="punch-count-display-3" class="text-4xl font-extrabold text-orange-500">0</p>
+            </div>
+            <div class="text-center">
+                <p class="text-lg font-bold">Movements</p>
+                <p id="movement-count-display-3" class="text-4xl font-extrabold text-blue-500">0</p>
+            </div>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+            <button id="start-button-3" class="level-button bg-orange-500 hover:bg-orange-400 hidden">Start</button>
+            <button id="stop-button-3" class="level-button bg-red-600 hover:bg-red-500 hidden">Stop</button>
+            <button id="back-button-3" class="level-button back-button">Back</button>
+        </div>
+        <div class="flex items-center justify-center gap-4 mt-4">
+            <button id="speed-down-3" class="level-button vibrant-button">Slow Down</button>
+            <span id="speed-display-3" class="text-xl font-bold">Speed: 1</span>
+            <button id="speed-up-3" class="level-button vibrant-button">Speed Up</button>
+        </div>
+        <button id="save-button-3" class="level-button vibrant-button mt-4 hidden">Save Workout</button>
+    </div>
+    
+    <!-- Level 4 Page Content -->
+    <div id="level-4-page" class="container hidden">
+        <h2 class="text-4xl font-bold mb-4 text-center">Level 4</h2>
+        <p class="text-center text-xl sm:text-2xl text-zinc-600 mb-8">Punches: 1-10 & Movements: SlipRight, SlipLeft, DuckUnder, StepForward, StepBack, StepLeft, StepRight</p>
+        <div id="difficulty-buttons-4" class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+            <button class="level-button vibrant-button" data-difficulty="easy">Easy</button>
+            <button class="level-button vibrant-button" data-difficulty="normal">Normal</button>
+            <button class="level-button vibrant-button" data-difficulty="hard">Hard</button>
+        </div>
+        <div id="timer-buttons-4" class="grid grid-cols-3 gap-4 mb-8">
+            <button class="level-button vibrant-button" data-timer="30">30 Sec</button>
+            <button class="level-button vibrant-button" data-timer="90">1:30</button>
+            <button class="level-button vibrant-button" data-timer="120">2:00</button>
+            <button class="level-button vibrant-button" data-timer="150">2:30</button>
+            <button class="level-button vibrant-button" data-timer="180">3:00</button>
+            <button class="level-button vibrant-button" data-timer="open">Open</button>
+        </div>
+        <div class="text-center combo-display mb-2" id="combo-display-4"></div>
+        <div id="status-message-4" class="text-center text-zinc-500 mb-4 hidden"></div>
+        <div class="text-center timer-display mb-4" id="timer-display-4"></div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-8 mb-4">
+            <div class="text-center">
+                <p class="text-lg font-bold">Punches</p>
+                <p id="punch-count-display-4" class="text-4xl font-extrabold text-orange-500">0</p>
+            </div>
+            <div class="text-center">
+                <p class="text-lg font-bold">Movements</p>
+                <p id="movement-count-display-4" class="text-4xl font-extrabold text-blue-500">0</p>
+            </div>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+            <button id="start-button-4" class="level-button bg-orange-500 hover:bg-orange-400 hidden">Start</button>
+            <button id="stop-button-4" class="level-button bg-red-600 hover:bg-red-500 hidden">Stop</button>
+            <button id="back-button-4" class="level-button back-button">Back</button>
+        </div>
+        <div class="flex items-center justify-center gap-4 mt-4">
+            <button id="speed-down-4" class="level-button vibrant-button">Slow Down</button>
+            <span id="speed-display-4" class="text-xl font-bold">Speed: 1</span>
+            <button id="speed-up-4" class="level-button vibrant-button">Speed Up</button>
+        </div>
+        <button id="save-button-4" class="level-button vibrant-button mt-4 hidden">Save Workout</button>
+    </div>
+
+    <!-- Level 5 Page Content -->
+    <div id="level-5-page" class="container hidden">
+        <h2 class="text-4xl font-bold mb-4 text-center">Level 5</h2>
+        <p class="text-center text-xl sm:text-2xl text-zinc-600 mb-8">Punches: 1-10 & Movements: SlipRight, SlipLeft, DuckUnder, StepForward, StepBack, StepLeft, StepRight, PivotLeft, PivotRight</p>
+        <div id="difficulty-buttons-5" class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+            <button class="level-button vibrant-button" data-difficulty="easy">Easy</button>
+            <button class="level-button vibrant-button" data-difficulty="normal">Normal</button>
+            <button class="level-button vibrant-button" data-difficulty="hard">Hard</button>
+        </div>
+        <div id="timer-buttons-5" class="grid grid-cols-3 gap-4 mb-8">
+            <button class="level-button vibrant-button" data-timer="30">30 Sec</button>
+            <button class="level-button vibrant-button" data-timer="90">1:30</button>
+            <button class="level-button vibrant-button" data-timer="120">2:00</button>
+            <button class="level-button vibrant-button" data-timer="150">2:30</button>
+            <button class="level-button vibrant-button" data-timer="180">3:00</button>
+            <button class="level-button vibrant-button" data-timer="open">Open</button>
+        </div>
+        <div class="text-center combo-display mb-2" id="combo-display-5"></div>
+        <div id="status-message-5" class="text-center text-zinc-500 mb-4 hidden"></div>
+        <div class="text-center timer-display mb-4" id="timer-display-5"></div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-8 mb-4">
+            <div class="text-center">
+                <p class="text-lg font-bold">Punches</p>
+                <p id="punch-count-display-5" class="text-4xl font-extrabold text-orange-500">0</p>
+            </div>
+            <div class="text-center">
+                <p class="text-lg font-bold">Movements</p>
+                <p id="movement-count-display-5" class="text-4xl font-extrabold text-blue-500">0</p>
+            </div>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+            <button id="start-button-5" class="level-button bg-orange-500 hover:bg-orange-400 hidden">Start</button>
+            <button id="stop-button-5" class="level-button bg-red-600 hover:bg-red-500 hidden">Stop</button>
+            <button id="back-button-5" class="level-button back-button">Back</button>
+        </div>
+        <div class="flex items-center justify-center gap-4 mt-4">
+            <button id="speed-down-5" class="level-button vibrant-button">Slow Down</button>
+            <span id="speed-display-5" class="text-xl font-bold">Speed: 1</span>
+            <button id="speed-up-5" class="level-button vibrant-button">Speed Up</button>
+        </div>
+        <button id="save-button-5" class="level-button vibrant-button mt-4 hidden">Save Workout</button>
+    </div>
+
+    <!-- Level 6 Page Content -->
+    <div id="level-6-page" class="container hidden">
+        <h2 class="text-4xl font-bold mb-4 text-center">Level 6</h2>
+        <p class="text-center text-xl sm:text-2xl text-zinc-600 mb-8">Punches: 1-16 & Movements: SlipRight, SlipLeft, DuckUnder, StepForward, StepBack, StepLeft, StepRight, PivotLeft, PivotRight</p>
+        <div id="difficulty-buttons-6" class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+            <button class="level-button vibrant-button" data-difficulty="easy">Easy</button>
+            <button class="level-button vibrant-button" data-difficulty="normal">Normal</button>
+            <button class="level-button vibrant-button" data-difficulty="hard">Hard</button>
+        </div>
+        <div id="timer-buttons-6" class="grid grid-cols-3 gap-4 mb-8">
+            <button class="level-button vibrant-button" data-timer="30">30 Sec</button>
+            <button class="level-button vibrant-button" data-timer="90">1:30</button>
+            <button class="level-button vibrant-button" data-timer="120">2:00</button>
+            <button class="level-button vibrant-button" data-timer="150">2:30</button>
+            <button class="level-button vibrant-button" data-timer="180">3:00</button>
+            <button class="level-button vibrant-button" data-timer="open">Open</button>
+        </div>
+        <div class="text-center combo-display mb-2" id="combo-display-6"></div>
+        <div id="status-message-6" class="text-center text-zinc-500 mb-4 hidden"></div>
+        <div class="text-center timer-display mb-4" id="timer-display-6"></div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-8 mb-4">
+            <div class="text-center">
+                <p class="text-lg font-bold">Punches</p>
+                <p id="punch-count-display-6" class="text-4xl font-extrabold text-orange-500">0</p>
+            </div>
+            <div class="text-center">
+                <p class="text-lg font-bold">Movements</p>
+                <p id="movement-count-display-6" class="text-4xl font-extrabold text-blue-500">0</p>
+            </div>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+            <button id="start-button-6" class="level-button bg-orange-500 hover:bg-orange-400 hidden">Start</button>
+            <button id="stop-button-6" class="level-button bg-red-600 hover:bg-red-500 hidden">Stop</button>
+            <button id="back-button-6" class="level-button back-button">Back</button>
+        </div>
+        <div class="flex items-center justify-center gap-4 mt-4">
+            <button id="speed-down-6" class="level-button vibrant-button">Slow Down</button>
+            <span id="speed-display-6" class="text-xl font-bold">Speed: 1</span>
+            <button id="speed-up-6" class="level-button vibrant-button">Speed Up</button>
+        </div>
+        <button id="save-button-6" class="level-button vibrant-button mt-4 hidden">Save Workout</button>
+    </div>
+    
+    <!-- Level 7 Page Content -->
+    <div id="level-7-page" class="container hidden">
+        <h2 class="text-4xl font-bold mb-4 text-center">Level 7</h2>
+        <p class="text-center text-xl sm:text-2xl text-zinc-600 mb-8">Punches: 1-16 & Movements: SlipRight, SlipLeft, DuckUnder, StepForward, StepBack, StepLeft, StepRight, PivotLeft, PivotRight</p>
+        <div id="difficulty-buttons-7" class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+            <button class="level-button vibrant-button" data-difficulty="easy">Easy</button>
+            <button class="level-button vibrant-button" data-difficulty="normal">Normal</button>
+            <button class="level-button vibrant-button" data-difficulty="hard">Hard</button>
+        </div>
+        <div id="timer-buttons-7" class="grid grid-cols-3 gap-4 mb-8">
+            <button class="level-button vibrant-button" data-timer="30">30 Sec</button>
+            <button class="level-button vibrant-button" data-timer="90">1:30</button>
+            <button class="level-button vibrant-button" data-timer="120">2:00</button>
+            <button class="level-button vibrant-button" data-timer="150">2:30</button>
+            <button class="level-button vibrant-button" data-timer="180">3:00</button>
+            <button class="level-button vibrant-button" data-timer="open">Open</button>
+        </div>
+        <div class="text-center combo-display mb-2" id="combo-display-7"></div>
+        <div id="status-message-7" class="text-center text-zinc-500 mb-4 hidden"></div>
+        <div class="text-center timer-display mb-4" id="timer-display-7"></div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-8 mb-4">
+            <div class="text-center">
+                <p class="text-lg font-bold">Punches</p>
+                <p id="punch-count-display-7" class="text-4xl font-extrabold text-orange-500">0</p>
+            </div>
+            <div class="text-center">
+                <p class="text-lg font-bold">Movements</p>
+                <p id="movement-count-display-7" class="text-4xl font-extrabold text-blue-500">0</p>
+            </div>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+            <button id="start-button-7" class="level-button bg-orange-500 hover:bg-orange-400 hidden">Start</button>
+            <button id="stop-button-7" class="level-button bg-red-600 hover:bg-red-500 hidden">Stop</button>
+            <button id="back-button-7" class="level-button back-button">Back</button>
+        </div>
+        <div class="flex items-center justify-center gap-4 mt-4">
+            <button id="speed-down-7" class="level-button vibrant-button">Slow Down</button>
+            <span id="speed-display-7" class="text-xl font-bold">Speed: 1</span>
+            <button id="speed-up-7" class="level-button vibrant-button">Speed Up</button>
+        </div>
+        <button id="save-button-7" class="level-button vibrant-button mt-4 hidden">Save Workout</button>
+    </div>
+    
+    <!-- Custom Modal UI for messages -->
+    <div id="message-modal" class="modal hidden">
+        <div class="modal-content text-center">
+            <p id="modal-message" class="text-lg font-semibold mb-4"></p>
+            <button id="close-modal-button" class="px-6 py-2 rounded-full vibrant-button">OK</button>
         </div>
     </div>
-</div>
+    
+    <!-- AUDIO ELEMENTS -->
+    <!-- Place your audio files in the same directory as this HTML file.
+         Name them exactly as shown below, e.g., 'punch-1.mp3', 'slip-right.mp3', etc. -->
+    <audio id="punch-1" src="./punch-1.mp3" preload="auto"></audio>
+    <audio id="punch-2" src="./punch-2.mp3" preload="auto"></audio>
+    <audio id="punch-3" src="./punch-3.mp3" preload="auto"></audio>
+    <audio id="punch-4" src="./punch-4.mp3" preload="auto"></audio>
+    <audio id="punch-5" src="./punch-5.mp3" preload="auto"></audio>
+    <audio id="punch-6" src="./punch-6.mp3" preload="auto"></audio>
+    <audio id="punch-7" src="./punch-7.mp3" preload="auto"></audio>
+    <audio id="punch-8" src="./punch-8.mp3" preload="auto"></audio>
+    <audio id="punch-9" src="./punch-9.mp3" preload="auto"></audio>
+    <audio id="punch-10" src="./punch-10.mp3" preload="auto"></audio>
+    <audio id="punch-11" src="./punch-11.mp3" preload="auto"></audio>
+    <audio id="punch-12" src="./punch-12.mp3" preload="auto"></audio>
+    <audio id="punch-13" src="./punch-13.mp3" preload="auto"></audio>
+    <audio id="punch-14" src="./punch-14.mp3" preload="auto"></audio>
+    <audio id="punch-15" src="./punch-15.mp3" preload="auto"></audio>
+    <audio id="punch-16" src="./punch-16.mp3" preload="auto"></audio>
+    <audio id="slip-right" src="./slip-right.mp3" preload="auto"></audio>
+    <audio id="slip-left" src="./slip-left.mp3" preload="auto"></audio>
+    <audio id="duck-under" src="./duck-under.mp3" preload="auto"></audio>
+    <audio id="slip" src="./slip.mp3" preload="auto"></audio>
+    <audio id="duck" src="./duck.mp3" preload="auto"></audio>
+    <audio id="step" src="./step.mp3" preload="auto"></audio>
+    <audio id="pivot" src="./pivot.mp3" preload="auto"></audio>
 
-<!-- Level 1 Page Content (Hidden by default) -->
-<div id="level-1-page" class="container hidden">
-    <h2 class="text-4xl font-bold mb-4 text-center">Level 1</h2>
-    <p class="text-center text-xl sm:text-2xl text-zinc-600 mb-8">Punches: 1, 2, 3, 4, 5, 6</p>
-    <div id="difficulty-buttons-1" class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-        <button class="level-button vibrant-button" data-difficulty="easy">Easy</button>
-        <button class="level-button vibrant-button" data-difficulty="normal">Normal</button>
-        <button class="level-button vibrant-button" data-difficulty="hard">Hard</button>
-    </div>
-    <div id="timer-buttons-1" class="grid grid-cols-3 gap-4 mb-8">
-        <button class="level-button vibrant-button" data-timer="30">30 Sec</button>
-        <button class="level-button vibrant-button" data-timer="90">1:30</button>
-        <button class="level-button vibrant-button" data-timer="120">2:00</button>
-        <button class="level-button vibrant-button" data-timer="150">2:30</button>
-        <button class="level-button vibrant-button" data-timer="180">3:00</button>
-        <button class="level-button vibrant-button" data-timer="open">Open</button>
-    </div>
-    <div class="text-center combo-display mb-2" id="combo-display-1"></div>
-    <div id="status-message-1" class="text-center text-zinc-500 mb-4 hidden"></div>
-    <div class="text-center timer-display mb-4" id="timer-display-1"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
 
-    <div class="flex flex-col sm:flex-row justify-center gap-8 mb-4">
-        <div class="text-center">
-            <p class="text-lg font-bold">Punches</p>
-            <p id="punch-count-display-1" class="text-4xl font-extrabold text-orange-500">0</p>
-        </div>
-        <div class="text-center">
-            <p class="text-lg font-bold">Movements</p>
-            <p id="movement-count-display-1" class="text-4xl font-extrabold text-blue-500">0</p>
-        </div>
-    </div>
-
-    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-        <button id="start-button-1" class="level-button bg-orange-500 hover:bg-orange-400 hidden">Start</button>
-        <button id="stop-button-1" class="level-button bg-red-600 hover:bg-red-500 hidden">Stop</button>
-        <button id="back-button-1" class="level-button back-button">Back</button>
-    </div>
-    <div class="flex items-center justify-center gap-4 mt-4">
-        <button id="speed-down-1" class="level-button vibrant-button">Slow Down</button>
-        <span id="speed-display-1" class="text-xl font-bold">Speed: 1</span>
-        <button id="speed-up-1" class="level-button vibrant-button">Speed Up</button>
-    </div>
-    <button id="save-button-1" class="level-button vibrant-button mt-4 hidden">Save Workout</button>
-</div>
-
-<!-- Level 2 Page Content (Hidden by default) -->
-<div id="level-2-page" class="container hidden">
-    <h2 class="text-4xl font-bold mb-4 text-center">Level 2</h2>
-    <p class="text-center text-xl sm:text-2xl text-zinc-600 mb-8">Punches: 1-6 & Movements: SlipRight, SlipLeft, DuckUnder</p>
-    <div id="difficulty-buttons-2" class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-        <button class="level-button vibrant-button" data-difficulty="easy">Easy</button>
-        <button class="level-button vibrant-button" data-difficulty="normal">Normal</button>
-        <button class="level-button vibrant-button" data-difficulty="hard">Hard</button>
-    </div>
-    <div id="timer-buttons-2" class="grid grid-cols-3 gap-4 mb-8">
-        <button class="level-button vibrant-button" data-timer="30">30 Sec</button>
-        <button class="level-button vibrant-button" data-timer="90">1:30</button>
-        <button class="level-button vibrant-button" data-timer="120">2:00</button>
-        <button class="level-button vibrant-button" data-timer="150">2:30</button>
-        <button class="level-button vibrant-button" data-timer="180">3:00</button>
-        <button class="level-button vibrant-button" data-timer="open">Open</button>
-    </div>
-    <div class="text-center combo-display mb-2" id="combo-display-2"></div>
-    <div id="status-message-2" class="text-center text-zinc-500 mb-4 hidden"></div>
-    <div class="text-center timer-display mb-4" id="timer-display-2"></div>
-
-    <div class="flex flex-col sm:flex-row justify-center gap-8 mb-4">
-        <div class="text-center">
-            <p class="text-lg font-bold">Punches</p>
-            <p id="punch-count-display-2" class="text-4xl font-extrabold text-orange-500">0</p>
-        </div>
-        <div class="text-center">
-            <p class="text-lg font-bold">Movements</p>
-            <p id="movement-count-display-2" class="text-4xl font-extrabold text-blue-500">0</p>
-        </div>
-    </div>
-
-    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-        <button id="start-button-2" class="level-button bg-orange-500 hover:bg-orange-400 hidden">Start</button>
-        <button id="stop-button-2" class="level-button bg-red-600 hover:bg-red-500 hidden">Stop</button>
-        <button id="back-button-2" class="level-button back-button">Back</button>
-    </div>
-    <div class="flex items-center justify-center gap-4 mt-4">
-        <button id="speed-down-2" class="level-button vibrant-button">Slow Down</button>
-        <span id="speed-display-2" class="text-xl font-bold">Speed: 1</span>
-        <button id="speed-up-2" class="level-button vibrant-button">Speed Up</button>
-    </div>
-    <button id="save-button-2" class="level-button vibrant-button mt-4 hidden">Save Workout</button>
-</div>
-
-<!-- Level 3 Page Content -->
-<div id="level-3-page" class="container hidden">
-    <h2 class="text-4xl font-bold mb-4 text-center">Level 3</h2>
-    <p class="text-center text-xl sm:text-2xl text-zinc-600 mb-8">Punches: 1-10 & Movements: SlipRight, SlipLeft, DuckUnder</p>
-    <div id="difficulty-buttons-3" class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-        <button class="level-button vibrant-button" data-difficulty="easy">Easy</button>
-        <button class="level-button vibrant-button" data-difficulty="normal">Normal</button>
-        <button class="level-button vibrant-button" data-difficulty="hard">Hard</button>
-    </div>
-    <div id="timer-buttons-3" class="grid grid-cols-3 gap-4 mb-8">
-        <button class="level-button vibrant-button" data-timer="30">30 Sec</button>
-        <button class="level-button vibrant-button" data-timer="90">1:30</button>
-        <button class="level-button vibrant-button" data-timer="120">2:00</button>
-        <button class="level-button vibrant-button" data-timer="150">2:30</button>
-        <button class="level-button vibrant-button" data-timer="180">3:00</button>
-        <button class="level-button vibrant-button" data-timer="open">Open</button>
-    </div>
-    <div class="text-center combo-display mb-2" id="combo-display-3"></div>
-    <div id="status-message-3" class="text-center text-zinc-500 mb-4 hidden"></div>
-    <div class="text-center timer-display mb-4" id="timer-display-3"></div>
-
-    <div class="flex flex-col sm:flex-row justify-center gap-8 mb-4">
-        <div class="text-center">
-            <p class="text-lg font-bold">Punches</p>
-            <p id="punch-count-display-3" class="text-4xl font-extrabold text-orange-500">0</p>
-        </div>
-        <div class="text-center">
-            <p class="text-lg font-bold">Movements</p>
-            <p id="movement-count-display-3" class="text-4xl font-extrabold text-blue-500">0</p>
-        </div>
-    </div>
-
-    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-        <button id="start-button-3" class="level-button bg-orange-500 hover:bg-orange-400 hidden">Start</button>
-        <button id="stop-button-3" class="level-button bg-red-600 hover:bg-red-500 hidden">Stop</button>
-        <button id="back-button-3" class="level-button back-button">Back</button>
-    </div>
-    <div class="flex items-center justify-center gap-4 mt-4">
-        <button id="speed-down-3" class="level-button vibrant-button">Slow Down</button>
-        <span id="speed-display-3" class="text-xl font-bold">Speed: 1</span>
-        <button id="speed-up-3" class="level-button vibrant-button">Speed Up</button>
-    </div>
-    <button id="save-button-3" class="level-button vibrant-button mt-4 hidden">Save Workout</button>
-</div>
-
-<!-- Level 4 Page Content -->
-<div id="level-4-page" class="container hidden">
-    <h2 class="text-4xl font-bold mb-4 text-center">Level 4</h2>
-    <p class="text-center text-xl sm:text-2xl text-zinc-600 mb-8">Punches: 1-10 & Movements: Slip, Duck, Step</p>
-    <div id="difficulty-buttons-4" class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-        <button class="level-button vibrant-button" data-difficulty="easy">Easy</button>
-        <button class="level-button vibrant-button" data-difficulty="normal">Normal</button>
-        <button class="level-button vibrant-button" data-difficulty="hard">Hard</button>
-    </div>
-    <div id="timer-buttons-4" class="grid grid-cols-3 gap-4 mb-8">
-        <button class="level-button vibrant-button" data-timer="30">30 Sec</button>
-        <button class="level-button vibrant-button" data-timer="90">1:30</button>
-        <button class="level-button vibrant-button" data-timer="120">2:00</button>
-        <button class="level-button vibrant-button" data-timer="150">2:30</button>
-        <button class="level-button vibrant-button" data-timer="180">3:00</button>
-        <button class="level-button vibrant-button" data-timer="open">Open</button>
-    </div>
-    <div class="text-center combo-display mb-2" id="combo-display-4"></div>
-    <div id="status-message-4" class="text-center text-zinc-500 mb-4 hidden"></div>
-    <div class="text-center timer-display mb-4" id="timer-display-4"></div>
-
-    <div class="flex flex-col sm:flex-row justify-center gap-8 mb-4">
-        <div class="text-center">
-            <p class="text-lg font-bold">Punches</p>
-            <p id="punch-count-display-4" class="text-4xl font-extrabold text-orange-500">0</p>
-        </div>
-        <div class="text-center">
-            <p class="text-lg font-bold">Movements</p>
-            <p id="movement-count-display-4" class="text-4xl font-extrabold text-blue-500">0</p>
-        </div>
-    </div>
-
-    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-        <button id="start-button-4" class="level-button bg-orange-500 hover:bg-orange-400 hidden">Start</button>
-        <button id="stop-button-4" class="level-button bg-red-600 hover:bg-red-500 hidden">Stop</button>
-        <button id="back-button-4" class="level-button back-button">Back</button>
-    </div>
-    <div class="flex items-center justify-center gap-4 mt-4">
-        <button id="speed-down-4" class="level-button vibrant-button">Slow Down</button>
-        <span id="speed-display-4" class="text-xl font-bold">Speed: 1</span>
-        <button id="speed-up-4" class="level-button vibrant-button">Speed Up</button>
-    </div>
-    <button id="save-button-4" class="level-button vibrant-button mt-4 hidden">Save Workout</button>
-</div>
-
-<!-- Level 5 Page Content -->
-<div id="level-5-page" class="container hidden">
-    <h2 class="text-4xl font-bold mb-4 text-center">Level 5</h2>
-    <p class="text-center text-xl sm:text-2xl text-zinc-600 mb-8">Punches: 1-10 & Movements: Slip, Duck, Step, Pivot</p>
-    <div id="difficulty-buttons-5" class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-        <button class="level-button vibrant-button" data-difficulty="easy">Easy</button>
-        <button class="level-button vibrant-button" data-difficulty="normal">Normal</button>
-        <button class="level-button vibrant-button" data-difficulty="hard">Hard</button>
-    </div>
-    <div id="timer-buttons-5" class="grid grid-cols-3 gap-4 mb-8">
-        <button class="level-button vibrant-button" data-timer="30">30 Sec</button>
-        <button class="level-button vibrant-button" data-timer="90">1:30</button>
-        <button class="level-button vibrant-button" data-timer="120">2:00</button>
-        <button class="level-button vibrant-button" data-timer="150">2:30</button>
-        <button class="level-button vibrant-button" data-timer="180">3:00</button>
-        <button class="level-button vibrant-button" data-timer="open">Open</button>
-    </div>
-    <div class="text-center combo-display mb-2" id="combo-display-5"></div>
-    <div id="status-message-5" class="text-center text-zinc-500 mb-4 hidden"></div>
-    <div class="text-center timer-display mb-4" id="timer-display-5"></div>
-
-    <div class="flex flex-col sm:flex-row justify-center gap-8 mb-4">
-        <div class="text-center">
-            <p class="text-lg font-bold">Punches</p>
-            <p id="punch-count-display-5" class="text-4xl font-extrabold text-orange-500">0</p>
-        </div>
-        <div class="text-center">
-            <p class="text-lg font-bold">Movements</p>
-            <p id="movement-count-display-5" class="text-4xl font-extrabold text-blue-500">0</p>
-        </div>
-    </div>
-
-    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-        <button id="start-button-5" class="level-button bg-orange-500 hover:bg-orange-400 hidden">Start</button>
-        <button id="stop-button-5" class="level-button bg-red-600 hover:bg-red-500 hidden">Stop</button>
-        <button id="back-button-5" class="level-button back-button">Back</button>
-    </div>
-    <div class="flex items-center justify-center gap-4 mt-4">
-        <button id="speed-down-5" class="level-button vibrant-button">Slow Down</button>
-        <span id="speed-display-5" class="text-xl font-bold">Speed: 1</span>
-        <button id="speed-up-5" class="level-button vibrant-button">Speed Up</button>
-    </div>
-    <button id="save-button-5" class="level-button vibrant-button mt-4 hidden">Save Workout</button>
-</div>
-
-<!-- Level 6 Page Content -->
-<div id="level-6-page" class="container hidden">
-    <h2 class="text-4xl font-bold mb-4 text-center">Level 6</h2>
-    <p class="text-center text-xl sm:text-2xl text-zinc-600 mb-8">Punches: 1-16 & Movements: Slip, Duck, Step, Pivot</p>
-    <div id="difficulty-buttons-6" class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-        <button class="level-button vibrant-button" data-difficulty="easy">Easy</button>
-        <button class="level-button vibrant-button" data-difficulty="normal">Normal</button>
-        <button class="level-button vibrant-button" data-difficulty="hard">Hard</button>
-    </div>
-    <div id="timer-buttons-6" class="grid grid-cols-3 gap-4 mb-8">
-        <button class="level-button vibrant-button" data-timer="30">30 Sec</button>
-        <button class="level-button vibrant-button" data-timer="90">1:30</button>
-        <button class="level-button vibrant-button" data-timer="120">2:00</button>
-        <button class="level-button vibrant-button" data-timer="150">2:30</button>
-        <button class="level-button vibrant-button" data-timer="180">3:00</button>
-        <button class="level-button vibrant-button" data-timer="open">Open</button>
-    </div>
-    <div class="text-center combo-display mb-2" id="combo-display-6"></div>
-    <div id="status-message-6" class="text-center text-zinc-500 mb-4 hidden"></div>
-    <div class="text-center timer-display mb-4" id="timer-display-6"></div>
-
-    <div class="flex flex-col sm:flex-row justify-center gap-8 mb-4">
-        <div class="text-center">
-            <p class="text-lg font-bold">Punches</p>
-            <p id="punch-count-display-6" class="text-4xl font-extrabold text-orange-500">0</p>
-        </div>
-        <div class="text-center">
-            <p class="text-lg font-bold">Movements</p>
-            <p id="movement-count-display-6" class="text-4xl font-extrabold text-blue-500">0</p>
-        </div>
-    </div>
-
-    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-        <button id="start-button-6" class="level-button bg-orange-500 hover:bg-orange-400 hidden">Start</button>
-        <button id="stop-button-6" class="level-button bg-red-600 hover:bg-red-500 hidden">Stop</button>
-        <button id="back-button-6" class="level-button back-button">Back</button>
-    </div>
-    <div class="flex items-center justify-center gap-4 mt-4">
-        <button id="speed-down-6" class="level-button vibrant-button">Slow Down</button>
-        <span id="speed-display-6" class="text-xl font-bold">Speed: 1</span>
-        <button id="speed-up-6" class="level-button vibrant-button">Speed Up</button>
-    </div>
-    <button id="save-button-6" class="level-button vibrant-button mt-4 hidden">Save Workout</button>
-</div>
-
-<!-- Level 7 Page Content -->
-<div id="level-7-page" class="container hidden">
-    <h2 class="text-4xl font-bold mb-4 text-center">Level 7</h2>
-    <p class="text-center text-xl sm:text-2xl text-zinc-600 mb-8">Punches: 1-16 & Movements: Slip, Duck, Step, Pivot</p>
-    <div id="difficulty-buttons-7" class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-        <button class="level-button vibrant-button" data-difficulty="easy">Easy</button>
-        <button class="level-button vibrant-button" data-difficulty="normal">Normal</button>
-        <button class="level-button vibrant-button" data-difficulty="hard">Hard</button>
-    </div>
-    <div id="timer-buttons-7" class="grid grid-cols-3 gap-4 mb-8">
-        <button class="level-button vibrant-button" data-timer="30">30 Sec</button>
-        <button class="level-button vibrant-button" data-timer="90">1:30</button>
-        <button class="level-button vibrant-button" data-timer="120">2:00</button>
-        <button class="level-button vibrant-button" data-timer="150">2:30</button>
-        <button class="level-button vibrant-button" data-timer="180">3:00</button>
-        <button class="level-button vibrant-button" data-timer="open">Open</button>
-    </div>
-    <div class="text-center combo-display mb-2" id="combo-display-7"></div>
-    <div id="status-message-7" class="text-center text-zinc-500 mb-4 hidden"></div>
-    <div class="text-center timer-display mb-4" id="timer-display-7"></div>
-
-    <div class="flex flex-col sm:flex-row justify-center gap-8 mb-4">
-        <div class="text-center">
-            <p class="text-lg font-bold">Punches</p>
-            <p id="punch-count-display-7" class="text-4xl font-extrabold text-orange-500">0</p>
-        </div>
-        <div class="text-center">
-            <p class="text-lg font-bold">Movements</p>
-            <p id="movement-count-display-7" class="text-4xl font-extrabold text-blue-500">0</p>
-        </div>
-    </div>
-
-    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-        <button id="start-button-7" class="level-button bg-orange-500 hover:bg-orange-400 hidden">Start</button>
-        <button id="stop-button-7" class="level-button bg-red-600 hover:bg-red-500 hidden">Stop</button>
-        <button id="back-button-7" class="level-button back-button">Back</button>
-    </div>
-    <div class="flex items-center justify-center gap-4 mt-4">
-        <button id="speed-down-7" class="level-button vibrant-button">Slow Down</button>
-        <span id="speed-display-7" class="text-xl font-bold">Speed: 1</span>
-        <button id="speed-up-7" class="level-button vibrant-button">Speed Up</button>
-    </div>
-    <button id="save-button-7" class="level-button vibrant-button mt-4 hidden">Save Workout</button>
-</div>
-
-<!-- Custom Modal UI for messages -->
-<div id="message-modal" class="modal hidden">
-    <div class="modal-content text-center">
-        <p id="modal-message" class="text-lg font-semibold mb-4"></p>
-        <button id="close-modal-button" class="px-6 py-2 rounded-full vibrant-button">OK</button>
-    </div>
-</div>
-
-<!-- AUDIO ELEMENTS -->
-<!-- Place your audio files in the same directory as this HTML file.
-     Name them exactly as shown below, e.g., 'punch-1.mp3', 'slip-right.mp3', etc. -->
-<audio id="punch-1" src="./punch-1.mp3" preload="auto"></audio>
-<audio id="punch-2" src="./punch-2.mp3" preload="auto"></audio>
-<audio id="punch-3" src="./punch-3.mp3" preload="auto"></audio>
-<audio id="punch-4" src="./punch-4.mp3" preload="auto"></audio>
-<audio id="punch-5" src="./punch-5.mp3" preload="auto"></audio>
-<audio id="punch-6" src="./punch-6.mp3" preload="auto"></audio>
-<audio id="punch-7" src="./punch-7.mp3" preload="auto"></audio>
-<audio id="punch-8" src="./punch-8.mp3" preload="auto"></audio>
-<audio id="punch-9" src="./punch-9.mp3" preload="auto"></audio>
-<audio id="punch-10" src="./punch-10.mp3" preload="auto"></audio>
-<audio id="punch-11" src="./punch-11.mp3" preload="auto"></audio>
-<audio id="punch-12" src="./punch-12.mp3" preload="auto"></audio>
-<audio id="punch-13" src="./punch-13.mp3" preload="auto"></audio>
-<audio id="punch-14" src="./punch-14.mp3" preload="auto"></audio>
-<audio id="punch-15" src="./punch-15.mp3" preload="auto"></audio>
-<audio id="punch-16" src="./punch-16.mp3" preload="auto"></audio>
-<audio id="slip-right" src="./slip-right.mp3" preload="auto"></audio>
-<audio id="slip-left" src="./slip-left.mp3" preload="auto"></audio>
-<audio id="duck-under" src="./duck-under.mp3" preload="auto"></audio>
-<audio id="slip" src="./slip.mp3" preload="auto"></audio>
-<audio id="duck" src="./duck.mp3" preload="auto"></audio>
-<audio id="step" src="./step.mp3" preload="auto"></audio>
-<audio id="pivot" src="./pivot.mp3" preload="auto"></audio>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-
-        const levels = 7;
-        const levelButtonContainer = document.getElementById('level-button-container');
-        const historyList = document.getElementById('history-list');
-        const streakDisplay = document.getElementById('streak-display');
-        const lastWorkoutDateDisplay = document.getElementById('last-workout-date');
-
-        // --- PUNCH AND MOVEMENT DATA ---
-        const levelData = {
-            1: {
-                punches: [1, 2, 3, 4, 5, 6],
-                movements: [],
-                easySequence: [1, 2, 3, 4, 5, 6]
-            },
-            2: {
-                punches: [1, 2, 3, 4, 5, 6],
-                movements: ['SlipRight', 'SlipLeft', 'DuckUnder'],
-                easySequence: [1, 2, 3, 4, 5, 6, 'SlipRight', 'SlipLeft', 'DuckUnder']
-            },
-            3: {
-                punches: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                movements: ['SlipRight', 'SlipLeft', 'DuckUnder'],
-                easySequence: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'SlipRight', 'SlipLeft', 'DuckUnder']
-            },
-            4: {
-                punches: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                movements: ['Slip', 'Duck', 'Step'],
-                easySequence: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Slip', 'Duck', 'Step']
-            },
-            5: {
-                punches: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                movements: ['Slip', 'Duck', 'Step', 'Pivot'],
-                easySequence: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Slip', 'Duck', 'Step', 'Pivot']
-            },
-            6: {
-                punches: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-                movements: ['Slip', 'Duck', 'Step', 'Pivot'],
-                easySequence: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 'Slip', 'Duck', 'Step', 'Pivot']
-            },
-            7: {
-                punches: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-                movements: ['Slip', 'Duck', 'Step', 'Pivot'],
-                easySequence: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 'Slip', 'Duck', 'Step', 'Pivot']
-            }
-        };
-
-        // Global state variables
-        let isWorkoutRunning = false;
-        let selectedDifficulty = null;
-        let selectedTimer = null;
-        let punchIntervalId = null;
-        let timerIntervalId = null;
-        let timeLeft = 0;
-        let currentLevel = null;
-        let easyModeIndex = 0;
-        let workoutStartedTime = null;
-        let gameSpeed = 1;
-        let punchCount = 0;
-        let movementCount = 0;
-
-        // Cache element references for each level
-        const levelElements = {};
-        for (let i = 1; i <= levels; i++) {
-            levelElements[i] = {
-                comboDisplay: document.getElementById(`combo-display-${i}`),
-                timerDisplay: document.getElementById(`timer-display-${i}`),
-                startButton: document.getElementById(`start-button-${i}`),
-                stopButton: document.getElementById(`stop-button-${i}`),
-                backButton: document.getElementById(`back-button-${i}`),
-                saveButton: document.getElementById(`save-button-${i}`),
-                difficultyButtons: document.querySelectorAll(`#difficulty-buttons-${i} .level-button`),
-                timerButtons: document.querySelectorAll(`#timer-buttons-${i} .level-button`),
-                statusMessage: document.getElementById(`status-message-${i}`),
-                speedUpButton: document.getElementById(`speed-up-${i}`),
-                speedDownButton: document.getElementById(`speed-down-${i}`),
-                speedDisplay: document.getElementById(`speed-display-${i}`),
-                punchCountDisplay: document.getElementById(`punch-count-display-${i}`),
-                movementCountDisplay: document.getElementById(`movement-count-display-${i}`)
+            const levels = 7;
+            const levelButtonContainer = document.getElementById('level-button-container');
+            const historyList = document.getElementById('history-list');
+            const streakDisplay = document.getElementById('streak-display');
+            const lastWorkoutDateDisplay = document.getElementById('last-workout-date');
+            
+            // --- PUNCH AND MOVEMENT DATA ---
+            const levelData = {
+                1: {
+                    punches: [1, 2, 3, 4, 5, 6],
+                    movements: [],
+                    easySequence: [1, 2, 3, 4, 5, 6]
+                },
+                2: {
+                    punches: [1, 2, 3, 4, 5, 6],
+                    movements: ['SlipRight', 'SlipLeft', 'DuckUnder'],
+                    easySequence: [1, 2, 3, 4, 5, 6, 'SlipRight', 'SlipLeft', 'DuckUnder']
+                },
+                3: {
+                    punches: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    movements: ['SlipRight', 'SlipLeft', 'DuckUnder'],
+                    easySequence: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'SlipRight', 'SlipLeft', 'DuckUnder']
+                },
+                4: {
+                    punches: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    movements: ['SlipRight', 'SlipLeft', 'DuckUnder', 'StepBack','StepForward','StepLeft','StepRight'],
+                    easySequence: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'SlipRight', 'SlipLeft', 'DuckUnder', 'StepBack','StepForward','StepLeft','StepRight']
+                },
+                5: {
+                    punches: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    movements: ['SlipRight', 'SlipLeft', 'DuckUnder', 'StepBack','StepForward','StepLeft','StepRight', 'PivotRight','PivotLeft'],
+                    easySequence: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'SlipRight', 'SlipLeft', 'DuckUnder', 'StepBack','StepForward','StepLeft','StepRight', 'PivotRight','PivotLeft']
+                },
+                6: {
+                    punches: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+                    movements: ['SlipRight', 'SlipLeft', 'DuckUnder', 'StepBack','StepForward','StepLeft','StepRight', 'PivotRight','PivotLeft'],
+                    easySequence: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 'SlipRight', 'SlipLeft', 'DuckUnder', 'StepBack','StepForward','StepLeft','StepRight', 'PivotRight','PivotLeft']
+                },
+                7: {
+                    punches: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+                    movements: ['SlipRight', 'SlipLeft', 'DuckUnder', 'StepBack','StepForward','StepLeft','StepRight', 'PivotRight','PivotLeft'],
+                    easySequence: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 'SlipRight', 'SlipLeft', 'DuckUnder', 'StepBack','StepForward','StepLeft','StepRight', 'PivotRight','PivotLeft']
+                }
             };
-        }
 
-        // --- LOCAL STORAGE LOGIC ---
-        function loadData() {
-            try {
-                const savedWorkouts = JSON.parse(localStorage.getItem('workouts') || '[]');
-                const savedStreak = JSON.parse(localStorage.getItem('streak') || '{}');
-                return { workouts: savedWorkouts, streak: savedStreak };
-            } catch (e) {
-                console.error("Failed to load data from localStorage:", e);
-                return { workouts: [], streak: {} };
+            // Global state variables
+            let isWorkoutRunning = false;
+            let selectedDifficulty = null;
+            let selectedTimer = null;
+            let punchIntervalId = null;
+            let timerIntervalId = null;
+            let timeLeft = 0;
+            let currentLevel = null;
+            let easyModeIndex = 0;
+            let workoutStartedTime = null;
+            let gameSpeed = 1;
+            let punchCount = 0;
+            let movementCount = 0;
+
+            // Cache element references for each level
+            const levelElements = {};
+            for (let i = 1; i <= levels; i++) {
+                levelElements[i] = {
+                    comboDisplay: document.getElementById(`combo-display-${i}`),
+                    timerDisplay: document.getElementById(`timer-display-${i}`),
+                    startButton: document.getElementById(`start-button-${i}`),
+                    stopButton: document.getElementById(`stop-button-${i}`),
+                    backButton: document.getElementById(`back-button-${i}`),
+                    saveButton: document.getElementById(`save-button-${i}`),
+                    difficultyButtons: document.querySelectorAll(`#difficulty-buttons-${i} .level-button`),
+                    timerButtons: document.querySelectorAll(`#timer-buttons-${i} .level-button`),
+                    statusMessage: document.getElementById(`status-message-${i}`),
+                    speedUpButton: document.getElementById(`speed-up-${i}`),
+                    speedDownButton: document.getElementById(`speed-down-${i}`),
+                    speedDisplay: document.getElementById(`speed-display-${i}`),
+                    punchCountDisplay: document.getElementById(`punch-count-display-${i}`),
+                    movementCountDisplay: document.getElementById(`movement-count-display-${i}`)
+                };
             }
-        }
 
-        function saveData(workouts, streak) {
-            try {
-                localStorage.setItem('workouts', JSON.stringify(workouts));
-                localStorage.setItem('streak', JSON.stringify(streak));
-            } catch (e) {
-                console.error("Failed to save data to localStorage:", e);
+            // --- LOCAL STORAGE LOGIC ---
+            function loadData() {
+                try {
+                    const savedWorkouts = JSON.parse(localStorage.getItem('workouts') || '[]');
+                    const savedStreak = JSON.parse(localStorage.getItem('streak') || '{}');
+                    return { workouts: savedWorkouts, streak: savedStreak };
+                } catch (e) {
+                    console.error("Failed to load data from localStorage:", e);
+                    return { workouts: [], streak: {} };
+                }
             }
-        }
-
-        function updateUIWithData() {
-            const { workouts, streak } = loadData();
-
-            // Update streak display
-            if (streak.dailyStreak) {
-                streakDisplay.textContent = streak.dailyStreak;
-                lastWorkoutDateDisplay.textContent = `Last workout: ${new Date(streak.lastWorkoutDate).toDateString()}`;
-            } else {
-                streakDisplay.textContent = '0';
-                lastWorkoutDateDisplay.textContent = 'Start a workout!';
+            
+            function saveData(workouts, streak) {
+                try {
+                    localStorage.setItem('workouts', JSON.stringify(workouts));
+                    localStorage.setItem('streak', JSON.stringify(streak));
+                } catch (e) {
+                    console.error("Failed to save data to localStorage:", e);
+                }
             }
 
-            // Update workout history
-            historyList.innerHTML = '';
-            // Sort workouts by timestamp in descending order in memory
-            workouts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-            const recentWorkouts = workouts.slice(0, 5); // Display only the 5 most recent
+            function updateUIWithData() {
+                const { workouts, streak } = loadData();
+                
+                // Update streak display
+                if (streak.dailyStreak) {
+                    streakDisplay.textContent = streak.dailyStreak;
+                    lastWorkoutDateDisplay.textContent = `Last workout: ${new Date(streak.lastWorkoutDate).toDateString()}`;
+                } else {
+                    streakDisplay.textContent = '0';
+                    lastWorkoutDateDisplay.textContent = 'Start a workout!';
+                }
+                
+                // Update workout history
+                historyList.innerHTML = '';
+                // Sort workouts by timestamp in descending order in memory
+                workouts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                const recentWorkouts = workouts.slice(0, 5); // Display only the 5 most recent
+                
+                if (recentWorkouts.length === 0) {
+                    historyList.innerHTML = '<p class="text-center text-gray-500">No workouts saved yet.</p>';
+                } else {
+                    recentWorkouts.forEach((workout) => {
+                        const workoutDate = new Date(workout.timestamp).toLocaleString();
+                        const workoutItem = document.createElement('div');
+                        workoutItem.className = 'bg-gray-200 p-2 my-2 rounded-lg';
+                        workoutItem.innerHTML = `
+                            <p class="font-bold">Level ${workout.level} (${workout.difficulty})</p>
+                            <p class="text-sm text-gray-700">Duration: ${formatTime(workout.duration)}</p>
+                            <p class="text-sm text-gray-700">Punches: ${workout.punches}, Movements: ${workout.movements}</p>
+                            <p class="text-xs text-gray-500">Date: ${workoutDate}</p>
+                        `;
+                        historyList.appendChild(workoutItem);
+                    });
+                }
+            }
 
-            if (recentWorkouts.length === 0) {
-                historyList.innerHTML = '<p class="text-center text-gray-500">No workouts saved yet.</p>';
-            } else {
-                recentWorkouts.forEach((workout) => {
-                    const workoutDate = new Date(workout.timestamp).toLocaleString();
-                    const workoutItem = document.createElement('div');
-                    workoutItem.className = 'bg-gray-200 p-2 my-2 rounded-lg';
-                    workoutItem.innerHTML = `
-                        <p class="font-bold">Level ${workout.level} (${workout.difficulty})</p>
-                        <p class="text-sm text-gray-700">Duration: ${formatTime(workout.duration)}</p>
-                        <p class="text-sm text-gray-700">Punches: ${workout.punches}, Movements: ${workout.movements}</p>
-                        <p class="text-xs text-gray-500">Date: ${workoutDate}</p>
-                    `;
-                    historyList.appendChild(workoutItem);
+            // --- AUDIO PLAYBACK ---
+            function playAudio(audioId) {
+                const audio = document.getElementById(audioId);
+                if (audio) {
+                    // Reset and play the audio
+                    audio.currentTime = 0;
+                    audio.play().catch(e => console.error(`Failed to play audio for ID: ${audioId}`, e));
+                } else {
+                    console.warn(`Audio element with ID "${audioId}" not found. Check your file names.`);
+                }
+            }
+            
+            // --- NAVIGATION AND WORKOUT CONTROL ---
+            function showPage(pageId) {
+                document.querySelectorAll('.container').forEach(page => {
+                    page.classList.add('hidden');
                 });
+                document.getElementById(pageId).classList.remove('hidden');
             }
-        }
 
-        // --- AUDIO PLAYBACK ---
-        function playAudio(audioId) {
-            const audio = document.getElementById(audioId);
-            if (audio) {
-                // Reset and play the audio
-                audio.currentTime = 0;
-                audio.play().catch(e => console.error(`Failed to play audio for ID: ${audioId}`, e));
-            } else {
-                console.warn(`Audio element with ID "${audioId}" not found. Check your file names.`);
+            function resetWorkoutState(level) {
+                isWorkoutRunning = false;
+                clearInterval(punchIntervalId);
+                clearInterval(timerIntervalId);
+                gameSpeed = 1;
+                punchCount = 0;
+                movementCount = 0;
+                easyModeIndex = 0;
+                
+                const elements = levelElements[level];
+                elements.comboDisplay.textContent = '';
+                elements.timerDisplay.textContent = '';
+                elements.speedDisplay.textContent = `Speed: ${gameSpeed}`;
+                elements.punchCountDisplay.textContent = '0';
+                elements.movementCountDisplay.textContent = '0';
+                elements.statusMessage.classList.add('hidden');
+                
+                elements.startButton.classList.remove('hidden');
+                elements.stopButton.classList.add('hidden');
+                elements.saveButton.classList.add('hidden');
             }
-        }
 
-        // --- NAVIGATION AND WORKOUT CONTROL ---
-        function showPage(pageId) {
-            document.querySelectorAll('.container').forEach(page => {
-                page.classList.add('hidden');
-            });
-            document.getElementById(pageId).classList.remove('hidden');
-        }
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }
 
-        function resetWorkoutState(level) {
-            isWorkoutRunning = false;
-            clearInterval(punchIntervalId);
-            clearInterval(timerIntervalId);
-            gameSpeed = 1;
-            punchCount = 0;
-            movementCount = 0;
-            easyModeIndex = 0;
-
-            const elements = levelElements[level];
-            elements.comboDisplay.textContent = '';
-            elements.timerDisplay.textContent = '';
-            elements.speedDisplay.textContent = `Speed: ${gameSpeed}`;
-            elements.punchCountDisplay.textContent = '0';
-            elements.movementCountDisplay.textContent = '0';
-            elements.statusMessage.classList.add('hidden');
-
-            elements.startButton.classList.remove('hidden');
-            elements.stopButton.classList.add('hidden');
-            elements.saveButton.classList.add('hidden');
-        }
-
-        function formatTime(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const remainingSeconds = seconds % 60;
-            return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-        }
-
-        function startTimer(level) {
-            const elements = levelElements[level];
-            const display = elements.timerDisplay;
-            const totalDuration = selectedTimer;
-            timeLeft = totalDuration;
-
-            if (selectedTimer !== 'open') {
-                display.textContent = formatTime(timeLeft);
-                timerIntervalId = setInterval(() => {
-                    timeLeft--;
+            function startTimer(level) {
+                const elements = levelElements[level];
+                const display = elements.timerDisplay;
+                const totalDuration = selectedTimer;
+                timeLeft = totalDuration;
+                
+                if (selectedTimer !== 'open') {
                     display.textContent = formatTime(timeLeft);
-                    if (timeLeft <= 0) {
-                        stopWorkout(level);
+                    timerIntervalId = setInterval(() => {
+                        timeLeft--;
+                        display.textContent = formatTime(timeLeft);
+                        if (timeLeft <= 0) {
+                            stopWorkout(level);
+                            const finalWorkoutStats = {
+                                level: level,
+                                difficulty: selectedDifficulty,
+                                duration: totalDuration,
+                                punches: punchCount,
+                                movements: movementCount,
+                                timestamp: new Date().toISOString()
+                            };
+                            saveWorkout(finalWorkoutStats);
+                            showModal('Workout Finished! Your workout has been saved.');
+                        }
+                    }, 1000);
+                } else {
+                    workoutStartedTime = Date.now();
+                    timerIntervalId = setInterval(() => {
+                        const elapsedTime = Math.floor((Date.now() - workoutStartedTime) / 1000);
+                        display.textContent = formatTime(elapsedTime);
+                    }, 1000);
+                }
+            }
+
+            function stopWorkout(level) {
+                if (isWorkoutRunning) {
+                    isWorkoutRunning = false;
+                    clearInterval(punchIntervalId);
+                    clearInterval(timerIntervalId);
+                    
+                    const elements = levelElements[level];
+                    elements.startButton.classList.remove('hidden');
+                    elements.stopButton.classList.add('hidden');
+                    elements.saveButton.classList.remove('hidden');
+                    
+                    if (selectedTimer === 'open') {
+                        const duration = Math.floor((Date.now() - workoutStartedTime) / 1000);
+                        timeLeft = duration;
+                    }
+                }
+            }
+            
+            function saveWorkout(workoutData) {
+                const { workouts, streak } = loadData();
+                workouts.push(workoutData);
+                
+                // Streak logic
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                let currentStreak = streak.dailyStreak || 0;
+                let lastDate = streak.lastWorkoutDate ? new Date(streak.lastWorkoutDate) : null;
+                
+                if (lastDate) {
+                    const diffDays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
+                    if (diffDays === 1) {
+                        currentStreak++;
+                    } else if (diffDays > 1) {
+                        currentStreak = 1;
+                    }
+                } else {
+                    currentStreak = 1;
+                }
+                
+                const newStreak = { dailyStreak: currentStreak, lastWorkoutDate: today.toISOString() };
+                saveData(workouts, newStreak);
+                updateUIWithData();
+            }
+
+            function generateNextCombo(level) {
+                const elements = levelElements[level];
+                const currentLevelData = levelData[level];
+                let comboText;
+                
+                if (selectedDifficulty === 'easy') {
+                    comboText = currentLevelData.easySequence[easyModeIndex];
+                    easyModeIndex = (easyModeIndex + 1) % currentLevelData.easySequence.length;
+                } else {
+                    const punches = currentLevelData.punches;
+                    const movements = currentLevelData.movements;
+                    const allItems = [...punches, ...movements];
+                    const comboLength = Math.floor(Math.random() * (selectedDifficulty === 'normal' ? 2 : 4)) + 1; // 1 to 2 for normal, 1 to 4 for hard
+                    const combo = [];
+                    for (let i = 0; i < comboLength; i++) {
+                        combo.push(allItems[Math.floor(Math.random() * allItems.length)]);
+                    }
+                    comboText = combo.join('-');
+                }
+                
+                elements.comboDisplay.textContent = comboText;
+                
+                // Play audio for each element in the combo
+                const comboParts = comboText.toString().split('-');
+                let delay = 0;
+                comboParts.forEach(part => {
+                    const audioId = part.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                    setTimeout(() => {
+                        playAudio(audioId);
+                    }, delay);
+                    // Add a slight delay between each audio cue in a combo
+                    delay += 500; 
+                });
+                
+                // Update punch and movement counts
+                comboParts.forEach(part => {
+                    if (currentLevelData.punches.includes(Number(part))) {
+                        punchCount++;
+                    } else if (currentLevelData.movements.includes(part)) {
+                        movementCount++;
+                    }
+                });
+                elements.punchCountDisplay.textContent = punchCount;
+                elements.movementCountDisplay.textContent = movementCount;
+            }
+
+            // --- UI LOGIC ---
+            function showModal(message) {
+                document.getElementById('modal-message').textContent = message;
+                document.getElementById('message-modal').classList.remove('hidden');
+            }
+
+            document.getElementById('close-modal-button').addEventListener('click', () => {
+                document.getElementById('message-modal').classList.add('hidden');
+            });
+            
+            // Create level buttons dynamically
+            for (let i = 1; i <= levels; i++) {
+                const button = document.createElement('button');
+                button.textContent = `Level ${i}`;
+                button.className = 'level-button vibrant-button';
+                button.dataset.level = i;
+                levelButtonContainer.appendChild(button);
+            }
+
+            // Add event listeners for level buttons
+            levelButtonContainer.addEventListener('click', (e) => {
+                if (e.target.matches('.level-button')) {
+                    currentLevel = parseInt(e.target.dataset.level);
+                    showPage(`level-${currentLevel}-page`);
+                    resetWorkoutState(currentLevel);
+                }
+            });
+
+            // Add event listeners for start/stop/back buttons for each level
+            for (let i = 1; i <= levels; i++) {
+                const elements = levelElements[i];
+                
+                elements.startButton.addEventListener('click', () => {
+                    if (!selectedDifficulty || !selectedTimer) {
+                        showModal('Please select a difficulty and timer.');
+                        return;
+                    }
+                    isWorkoutRunning = true;
+                    elements.startButton.classList.add('hidden');
+                    elements.stopButton.classList.remove('hidden');
+                    
+                    const interval = 2000 / gameSpeed;
+                    punchIntervalId = setInterval(() => generateNextCombo(i), interval);
+                    startTimer(i);
+                });
+
+                elements.stopButton.addEventListener('click', () => {
+                    stopWorkout(i);
+                });
+                
+                elements.backButton.addEventListener('click', () => {
+                    stopWorkout(i);
+                    showPage('main-menu-page');
+                });
+                
+                elements.saveButton.addEventListener('click', () => {
+                    if (timeLeft > 0) { // Workout was stopped manually
+                        const duration = (selectedTimer === 'open' ? Math.floor((Date.now() - workoutStartedTime) / 1000) : selectedTimer - timeLeft);
                         const finalWorkoutStats = {
-                            level: level,
+                            level: i,
                             difficulty: selectedDifficulty,
-                            duration: totalDuration,
+                            duration: duration,
                             punches: punchCount,
                             movements: movementCount,
                             timestamp: new Date().toISOString()
                         };
                         saveWorkout(finalWorkoutStats);
-                        showModal('Workout Finished! Your workout has been saved.');
+                        showModal('Workout saved successfully!');
+                    } else { // Workout finished automatically
+                        showModal('This workout has already been saved.');
                     }
-                }, 1000);
-            } else {
-                workoutStartedTime = Date.now();
-                timerIntervalId = setInterval(() => {
-                    const elapsedTime = Math.floor((Date.now() - workoutStartedTime) / 1000);
-                    display.textContent = formatTime(elapsedTime);
-                }, 1000);
+                });
+
+                elements.difficultyButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        elements.difficultyButtons.forEach(btn => btn.classList.remove('button-selected'));
+                        button.classList.add('button-selected');
+                        selectedDifficulty = button.dataset.difficulty;
+                        elements.statusMessage.textContent = `Selected: ${selectedDifficulty.charAt(0).toUpperCase() + selectedDifficulty.slice(1)} Difficulty`;
+                        elements.statusMessage.classList.remove('hidden');
+                        if (selectedTimer) {
+                            elements.startButton.classList.remove('hidden');
+                        }
+                    });
+                });
+
+                elements.timerButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        elements.timerButtons.forEach(btn => btn.classList.remove('button-selected'));
+                        button.classList.add('button-selected');
+                        selectedTimer = button.dataset.timer;
+                        elements.statusMessage.textContent = `Selected: ${button.textContent}`;
+                        elements.statusMessage.classList.remove('hidden');
+                        if (selectedDifficulty) {
+                            elements.startButton.classList.remove('hidden');
+                        }
+                    });
+                });
+                
+                elements.speedUpButton.addEventListener('click', () => {
+                    if (gameSpeed < 5) {
+                        gameSpeed += 0.25;
+                        elements.speedDisplay.textContent = `Speed: ${gameSpeed}`;
+                        if (isWorkoutRunning) {
+                            clearInterval(punchIntervalId);
+                            const newInterval = 2000 / gameSpeed;
+                            punchIntervalId = setInterval(() => generateNextCombo(i), newInterval);
+                        }
+                    }
+                });
+                
+                elements.speedDownButton.addEventListener('click', () => {
+                    if (gameSpeed > 0.25) {
+                        gameSpeed -= 0.25;
+                        elements.speedDisplay.textContent = `Speed: ${gameSpeed}`;
+                        if (isWorkoutRunning) {
+                            clearInterval(punchIntervalId);
+                            const newInterval = 2000 / gameSpeed;
+                            punchIntervalId = setInterval(() => generateNextCombo(i), newInterval);
+                        }
+                    }
+                });
             }
-        }
 
-        function stopWorkout(level) {
-            if (isWorkoutRunning) {
-                isWorkoutRunning = false;
-                clearInterval(punchIntervalId);
-                clearInterval(timerIntervalId);
-
-                const elements = levelElements[level];
-                elements.startButton.classList.remove('hidden');
-                elements.stopButton.classList.add('hidden');
-                elements.saveButton.classList.remove('hidden');
-
-                if (selectedTimer === 'open') {
-                    const duration = Math.floor((Date.now() - workoutStartedTime) / 1000);
-                    timeLeft = duration;
-                }
-            }
-        }
-
-        function saveWorkout(workoutData) {
-            const { workouts, streak } = loadData();
-            workouts.push(workoutData);
-
-            // Streak logic
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            let currentStreak = streak.dailyStreak || 0;
-            let lastDate = streak.lastWorkoutDate ? new Date(streak.lastWorkoutDate) : null;
-
-            if (lastDate) {
-                const diffDays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
-                if (diffDays === 1) {
-                    currentStreak++;
-                } else if (diffDays > 1) {
-                    currentStreak = 1;
-                }
-            } else {
-                currentStreak = 1;
-            }
-
-            const newStreak = { dailyStreak: currentStreak, lastWorkoutDate: today.toISOString() };
-            saveData(workouts, newStreak);
+            // Initial UI setup
             updateUIWithData();
-        }
-
-        function generateNextCombo(level) {
-            const elements = levelElements[level];
-            const currentLevelData = levelData[level];
-            let comboText;
-
-            if (selectedDifficulty === 'easy') {
-                comboText = currentLevelData.easySequence[easyModeIndex];
-                easyModeIndex = (easyModeIndex + 1) % currentLevelData.easySequence.length;
-            } else {
-                const punches = currentLevelData.punches;
-                const movements = currentLevelData.movements;
-                const allItems = [...punches, ...movements];
-                const comboLength = Math.floor(Math.random() * (selectedDifficulty === 'normal' ? 2 : 4)) + 1; // 1 to 2 for normal, 1 to 4 for hard
-                const combo = [];
-                for (let i = 0; i < comboLength; i++) {
-                    combo.push(allItems[Math.floor(Math.random() * allItems.length)]);
-                }
-                comboText = combo.join('-');
-            }
-
-            elements.comboDisplay.textContent = comboText;
-
-            // Play audio for each element in the combo
-            const comboParts = comboText.toString().split('-');
-            let delay = 0;
-            comboParts.forEach(part => {
-                const audioId = part.toLowerCase().replace(/[^a-z0-9]/g, '-');
-                setTimeout(() => {
-                    playAudio(audioId);
-                }, delay);
-                // Add a slight delay between each audio cue in a combo
-                delay += 500;
-            });
-
-            // Update punch and movement counts
-            comboParts.forEach(part => {
-                if (currentLevelData.punches.includes(Number(part))) {
-                    punchCount++;
-                } else if (currentLevelData.movements.includes(part)) {
-                    movementCount++;
-                }
-            });
-            elements.punchCountDisplay.textContent = punchCount;
-            elements.movementCountDisplay.textContent = movementCount;
-        }
-
-        // --- UI LOGIC ---
-        function showModal(message) {
-            document.getElementById('modal-message').textContent = message;
-            document.getElementById('message-modal').classList.remove('hidden');
-        }
-
-        document.getElementById('close-modal-button').addEventListener('click', () => {
-            document.getElementById('message-modal').classList.add('hidden');
         });
-
-        // Create level buttons dynamically
-        for (let i = 1; i <= levels; i++) {
-            const button = document.createElement('button');
-            button.textContent = `Level ${i}`;
-            button.className = 'level-button vibrant-button';
-            button.dataset.level = i;
-            levelButtonContainer.appendChild(button);
-        }
-
-        // Add event listeners for level buttons
-        levelButtonContainer.addEventListener('click', (e) => {
-            if (e.target.matches('.level-button')) {
-                currentLevel = parseInt(e.target.dataset.level);
-                showPage(`level-${currentLevel}-page`);
-                resetWorkoutState(currentLevel);
-            }
-        });
-
-        // Add event listeners for start/stop/back buttons for each level
-        for (let i = 1; i <= levels; i++) {
-            const elements = levelElements[i];
-
-            elements.startButton.addEventListener('click', () => {
-                if (!selectedDifficulty || !selectedTimer) {
-                    showModal('Please select a difficulty and timer.');
-                    return;
-                }
-                isWorkoutRunning = true;
-                elements.startButton.classList.add('hidden');
-                elements.stopButton.classList.remove('hidden');
-
-                const interval = 2000 / gameSpeed;
-                punchIntervalId = setInterval(() => generateNextCombo(i), interval);
-                startTimer(i);
-            });
-
-            elements.stopButton.addEventListener('click', () => {
-                stopWorkout(i);
-            });
-
-            elements.backButton.addEventListener('click', () => {
-                stopWorkout(i);
-                showPage('main-menu-page');
-            });
-
-            elements.saveButton.addEventListener('click', () => {
-                if (timeLeft > 0) { // Workout was stopped manually
-                    const duration = (selectedTimer === 'open' ? Math.floor((Date.now() - workoutStartedTime) / 1000) : selectedTimer - timeLeft);
-                    const finalWorkoutStats = {
-                        level: i,
-                        difficulty: selectedDifficulty,
-                        duration: duration,
-                        punches: punchCount,
-                        movements: movementCount,
-                        timestamp: new Date().toISOString()
-                    };
-                    saveWorkout(finalWorkoutStats);
-                    showModal('Workout saved successfully!');
-                } else { // Workout finished automatically
-                    showModal('This workout has already been saved.');
-                }
-            });
-
-            elements.difficultyButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    elements.difficultyButtons.forEach(btn => btn.classList.remove('button-selected'));
-                    button.classList.add('button-selected');
-                    selectedDifficulty = button.dataset.difficulty;
-                    elements.statusMessage.textContent = `Selected: ${selectedDifficulty.charAt(0).toUpperCase() + selectedDifficulty.slice(1)} Difficulty`;
-                    elements.statusMessage.classList.remove('hidden');
-                    if (selectedTimer) {
-                        elements.startButton.classList.remove('hidden');
-                    }
-                });
-            });
-
-            elements.timerButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    elements.timerButtons.forEach(btn => btn.classList.remove('button-selected'));
-                    button.classList.add('button-selected');
-                    selectedTimer = button.dataset.timer;
-                    elements.statusMessage.textContent = `Selected: ${button.textContent}`;
-                    elements.statusMessage.classList.remove('hidden');
-                    if (selectedDifficulty) {
-                        elements.startButton.classList.remove('hidden');
-                    }
-                });
-            });
-
-            elements.speedUpButton.addEventListener('click', () => {
-                if (gameSpeed < 5) {
-                    gameSpeed += 0.25;
-                    elements.speedDisplay.textContent = `Speed: ${gameSpeed}`;
-                    if (isWorkoutRunning) {
-                        clearInterval(punchIntervalId);
-                        const newInterval = 2000 / gameSpeed;
-                        punchIntervalId = setInterval(() => generateNextCombo(i), newInterval);
-                    }
-                }
-            });
-
-            elements.speedDownButton.addEventListener('click', () => {
-                if (gameSpeed > 0.25) {
-                    gameSpeed -= 0.25;
-                    elements.speedDisplay.textContent = `Speed: ${gameSpeed}`;
-                    if (isWorkoutRunning) {
-                        clearInterval(punchIntervalId);
-                        const newInterval = 2000 / gameSpeed;
-                        punchIntervalId = setInterval(() => generateNextCombo(i), newInterval);
-                    }
-                }
-            });
-        }
-
-        // Initial UI setup
-        updateUIWithData();
-    });
-</script>
+    </script>
 </body>
 </html>
